@@ -10,6 +10,8 @@ namespace StarterAssets
 		[Header("Character Input Values")]
 		public bool isAiming;
 		public bool isAimShoot;
+		public bool isSwordSlash;
+		public bool isShieldBlock;
 		public Vector2 move;
 		public Vector2 look;
 		public bool jump;
@@ -85,6 +87,15 @@ namespace StarterAssets
 		public void OnAimShoot(InputValue value)
 		{
 			isAimShoot = value.isPressed;
+		}
+
+		public void OnSwordSlash(InputValue value)
+		{
+			isSwordSlash = value.isPressed;
+		}
+		public void OnShieldBlock(InputValue value)
+		{
+			isShieldBlock = value.isPressed;
 		}
 
 	}

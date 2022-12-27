@@ -172,6 +172,7 @@ namespace StarterAssets
 
 		private void AimShoot()
 		{
+			// TODO: switch between (Bow) and (Sword - shield)
 
 			if (_input.isAiming && Grounded && !_input.sprint)
 			{
@@ -188,10 +189,34 @@ namespace StarterAssets
 				playerAimCamera.SetActive(false);
 
 			}
+
+
+
+			// TODO: WIP - sword slash and shield block
+			if (false && !_input.sprint && Grounded)
+			{
+				if (_input.isSwordSlash)
+				{
+					_animator.SetTrigger("SwordSlash");
+				}
+
+				if (_input.isShieldBlock)
+				{
+					// TODO: Player can't move while blocking with shield
+					_animator.SetBool("ShieldBlock", true);
+				}
+				else
+				{
+					_animator.SetBool("ShieldBlock", false);
+				}
+
+			}
+
 		}
 
 		public void ShootArrow()
 		{
+			//   Event Trigger by animation
 			Debug.Log("ShootArrow");
 			GameObject arrow = Instantiate(arrowObj, arrowPoint.position, transform.rotation);
 			arrow.GetComponent<Rigidbody>().AddForce(transform.forward * 25f, ForceMode.Impulse);
