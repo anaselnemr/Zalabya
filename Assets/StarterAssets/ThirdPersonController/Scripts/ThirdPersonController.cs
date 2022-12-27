@@ -15,6 +15,11 @@ namespace StarterAssets
 	public class ThirdPersonController : MonoBehaviour
 	{
 		public GameObject gliderObj;
+		public GameObject arrowObj;
+		public Transform arrowPoint;
+		public GameObject playerFollowCamera;
+		public GameObject playerAimCamera;
+
 
 		[Header("Player")]
 		[Tooltip("Move speed of the character in m/s")]
@@ -162,6 +167,34 @@ namespace StarterAssets
 			JumpAndGravity();
 			GroundedCheck();
 			Move();
+			AimShoot();
+		}
+
+		private void AimShoot()
+		{
+
+			if (_input.isAiming && Grounded && !_input.sprint)
+			{
+				_animator.SetBool("Aiming", _input.isAiming);
+				_animator.SetBool("AimShoot", _input.isAimShoot);
+				playerFollowCamera.SetActive(false);
+				playerAimCamera.SetActive(true);
+			}
+			else
+			{
+				_animator.SetBool("Aiming", false);
+				_animator.SetBool("AimShoot", false);
+				playerFollowCamera.SetActive(true);
+				playerAimCamera.SetActive(false);
+
+			}
+		}
+
+		public void ShootArrow()
+		{
+			Debug.Log("ShootArrow");
+			GameObject arrow = Instantiate(arrowObj, arrowPoint.position, transform.rotation);
+			arrow.GetComponent<Rigidbody>().AddForce(transform.forward * 25f, ForceMode.Impulse);
 		}
 
 		private void FixedUpdate()

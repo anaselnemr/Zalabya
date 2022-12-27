@@ -8,6 +8,8 @@ namespace StarterAssets
 	public class StarterAssetsInputs : MonoBehaviour
 	{
 		[Header("Character Input Values")]
+		public bool isAiming;
+		public bool isAimShoot;
 		public Vector2 move;
 		public Vector2 look;
 		public bool jump;
@@ -28,7 +30,7 @@ namespace StarterAssets
 
 		public void OnLook(InputValue value)
 		{
-			if(cursorInputForLook)
+			if (cursorInputForLook)
 			{
 				LookInput(value.Get<Vector2>());
 			}
@@ -45,11 +47,10 @@ namespace StarterAssets
 		}
 #endif
 
-
 		public void MoveInput(Vector2 newMoveDirection)
 		{
 			move = newMoveDirection;
-		} 
+		}
 
 		public void LookInput(Vector2 newLookDirection)
 		{
@@ -75,6 +76,18 @@ namespace StarterAssets
 		{
 			Cursor.lockState = newState ? CursorLockMode.Locked : CursorLockMode.None;
 		}
+
+		public void OnAiming(InputValue value)
+		{
+			isAiming = value.isPressed;
+		}
+
+		public void OnAimShoot(InputValue value)
+		{
+			isAimShoot = value.isPressed;
+		}
+
 	}
-	
+
+
 }
