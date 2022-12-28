@@ -1,6 +1,9 @@
-﻿using UnityEngine;
+﻿using System;
+using Unity.VisualScripting.Antlr3.Runtime.Tree;
+using UnityEngine;
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
 using UnityEngine.InputSystem;
+using UnityEngine.XR;
 #endif
 
 /* Note: animations are called via the controller for both the character and capsule using animator null checks
@@ -20,6 +23,13 @@ namespace StarterAssets
 		public GameObject playerFollowCamera;
 		public GameObject playerAimCamera;
 
+		public GameObject Swordhand;
+		public GameObject Shieldhand;
+		public GameObject Bowhand;
+		public GameObject Sword;
+		public GameObject Shield;
+/*		public GameObject Bow;
+*/        private Boolean range = false;
 
 		[Header("Player")]
 		[Tooltip("Move speed of the character in m/s")]
@@ -112,7 +122,7 @@ namespace StarterAssets
 		private CharacterController _controller;
 		private StarterAssetsInputs _input;
 		private GameObject _mainCamera;
-
+		private int c = 0;
 		private const float _threshold = 0.01f;
 
 		private bool _hasAnimator;
@@ -141,7 +151,13 @@ namespace StarterAssets
 
 		private void Start()
 		{
-			_cinemachineTargetYaw = CinemachineCameraTarget.transform.rotation.eulerAngles.y;
+            GameObject.Find("Swordhand").SetActive(true);
+            GameObject.Find("Shieldhand").SetActive(true);
+            GameObject.Find("Sword").SetActive(false);
+            GameObject.Find("Shield").SetActive(false);
+            GameObject.Find("Bowhand").SetActive(false);
+			
+            _cinemachineTargetYaw = CinemachineCameraTarget.transform.rotation.eulerAngles.y;
 
 			_hasAnimator = TryGetComponent(out _animator);
 			_animator.GetComponent<Animator>();
@@ -168,13 +184,109 @@ namespace StarterAssets
 			GroundedCheck();
 			Move();
 			AimShoot();
-		}
+            // Gliding animation and action with setting the active weapons
 
-		private void AimShoot()
+
+
+            if (Input.GetKey(KeyCode.Space) && _verticalVelocity<0)
+            {
+                Gravity = -1.0f;
+					gliderObj.SetActive(true);
+					_animator.SetBool("Hanging", true);
+					Swordhand.SetActive(false);
+					Shieldhand.SetActive(false);
+					Bowhand.SetActive(false);
+					Sword.SetActive(true);
+					Shield.SetActive(true);
+
+            }
+			else
+            {
+                Gravity = -15.0f;
+				gliderObj.SetActive(false);
+				_animator.SetBool("Hanging", false);
+                if (range == true)
+                {
+                    // bow and arrow set to active true
+                    Swordhand.SetActive(false);
+                    Shieldhand.SetActive(false);
+                    Sword.SetActive(true);
+                    Shield.SetActive(true);
+                    Bowhand.SetActive(true);
+                    range = true;
+
+                }
+                else
+                {
+                    //sword and shield set to active true
+                    Swordhand.SetActive(true);
+                    Shieldhand.SetActive(true);
+                    Sword.SetActive(false);
+                    Shield.SetActive(false);
+                    Bowhand.SetActive(false);
+                    range = false;
+                }	
+            }
+
+			if (Grounded)
+			{
+				// to disable glider when grounded
+				gliderObj.SetActive(false);
+			}
+			if (Input.GetKeyDown(KeyCode.Tab))
+			{
+				range = !range;
+			}
+
+
+			// aimaing animation with camera and stay still (right click)
+			// shoot only while aiming (left click)
+			//sword slash  (right click)
+			//or sword block (left click)
+			// return animation after each trial
+
+            _animator.SetBool("Aiming", false);
+            _animator.SetBool("AimShoot", false);
+            _animator.SetBool("ShieldBlock", false);
+            playerFollowCamera.SetActive(true);
+            playerAimCamera.SetActive(false);
+
+            if (Input.GetMouseButton(1))
+            {
+                if (range)
+                {
+                    _animator.SetBool("Aiming", true);
+                    playerFollowCamera.SetActive(false);
+                    playerAimCamera.SetActive(true);
+                }
+
+                else
+                {
+                    _animator.SetBool("ShieldBlock", true);
+                }
+            }
+
+            if (Input.GetMouseButton(0)){
+
+				if (range && _animator.GetBool(("Aiming"))) {
+                    _animator.SetBool("AimShoot",true);
+                }
+
+				if(!range)
+				{
+                    _animator.SetTrigger("SwordSlash");
+                }
+			}
+
+
+
+        }
+
+            private void AimShoot()
 		{
 			// TODO: switch between (Bow) and (Sword - shield)
 
-			if (_input.isAiming && Grounded && !_input.sprint)
+			if (_input.isAiming && Grounded && !_input.sprint && range)
 			{
 				_animator.SetBool("Aiming", _input.isAiming);
 				_animator.SetBool("AimShoot", _input.isAimShoot);
@@ -182,6 +294,7 @@ namespace StarterAssets
 				playerAimCamera.SetActive(true);
 			}
 			else
+			if(range)
 			{
 				_animator.SetBool("Aiming", false);
 				_animator.SetBool("AimShoot", false);
@@ -193,7 +306,7 @@ namespace StarterAssets
 
 
 			// TODO: WIP - sword slash and shield block
-			if (false && !_input.sprint && Grounded)
+			if (!_input.sprint && Grounded && !range)
 			{
 				if (_input.isSwordSlash)
 				{
@@ -222,28 +335,7 @@ namespace StarterAssets
 			arrow.GetComponent<Rigidbody>().AddForce(transform.forward * 25f, ForceMode.Impulse);
 		}
 
-		private void FixedUpdate()
-		{
-			if (Input.GetKey(KeyCode.Space))
-			{
-				Gravity = -1.0f;
-				gliderObj.SetActive(true);
-				_animator.SetBool("Hanging", true);
-			}
-			else
-			{
-				Gravity = -15.0f;
-				gliderObj.SetActive(false);
-				_animator.SetBool("Hanging", false);
-			}
 
-			if (Grounded)
-			{
-				// to disable glider when grounded
-				gliderObj.SetActive(false);
-			}
-
-		}
 
 		private void LateUpdate()
 		{
@@ -462,7 +554,7 @@ namespace StarterAssets
 			{
 				if (FootstepAudioClips.Length > 0)
 				{
-					var index = Random.Range(0, FootstepAudioClips.Length);
+					var index = UnityEngine.Random.Range(0, FootstepAudioClips.Length);
 					AudioSource.PlayClipAtPoint(FootstepAudioClips[index], transform.TransformPoint(_controller.center), FootstepAudioVolume);
 				}
 			}

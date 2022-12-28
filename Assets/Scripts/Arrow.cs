@@ -6,7 +6,7 @@ public class Arrow : MonoBehaviour
 {
 	private void Start()
 	{
-		// remoev the arrow after x seconds
+		// remove the arrow after x seconds
 		Destroy(gameObject, 10);
 	}
 	private void OnTriggerEnter(Collider other)

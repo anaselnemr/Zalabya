@@ -79,7 +79,7 @@ namespace StarterAssets
 			Cursor.lockState = newState ? CursorLockMode.Locked : CursorLockMode.None;
 		}
 
-		public void OnAiming(InputValue value)
+/*		public void OnAiming(InputValue value)
 		{
 			isAiming = value.isPressed;
 		}
@@ -96,7 +96,7 @@ namespace StarterAssets
 		public void OnShieldBlock(InputValue value)
 		{
 			isShieldBlock = value.isPressed;
-		}
+		}*/
 
 	}
 
