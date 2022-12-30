@@ -6,6 +6,11 @@ TagManager:
   tags:
   - CinemachineTarget
   - enemy
+  - Hero
+  - Bokoblin
+  - Moblin
+  - Next Level
+  - Door
   layers:
   - Default
   - TransparentFX
@@ -13,8 +18,8 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
+  - Whatisplayer
+  - Whatisground
   - 
   - 
   - 

@@ -1,0 +1,88 @@
+
+newmtl BaseMaterial0
+Kd  0.41086004 0.38356016 0.38724828
+Ks  00 00 00
+Ka  00 00 00
+d  01
+Ns  00
+illum 2
+
+
+
+
+newmtl BaseMaterial1
+Kd  0.71799992 0.44 0.04
+Ks  00 00 00
+Ka  00 00 00
+d  01
+Ns  00
+illum 2
+
+
+
+
+newmtl BaseMaterial2
+Kd  01 0.674 0.2249994
+Ks  00 00 00
+Ka  00 00 00
+d  01
+Ns  00
+illum 2
+
+
+
+
+newmtl BaseMaterial3
+Kd  0.681 0.59 0.33499944
+Ks  00 00 00
+Ka  00 00 00
+d  01
+Ns  00
+illum 2
+
+
+
+
+newmtl BaseMaterial4
+Kd  00 0.5 01
+Ks  00 00 00
+Ka  00 00 00
+d  01
+Ns  00
+illum 2
+
+
+
+
+newmtl BaseMaterial5
+Kd  0.41199924 0.37099924 0.37899924
+Ks  00 00 00
+Ka  00 00 00
+d  01
+Ns  00
+illum 2
+
+
+
+
+newmtl BaseMaterial6
+Kd  0.64899996 0.468 0.15799994
+Ks  00 00 00
+Ka  00 00 00
+d  01
+Ns  00
+illum 2
+
+
+
+
+newmtl BaseMaterial7
+Kd  0.49 0.49 0.49
+Ks  00 00 00
+Ka  00 00 00
+d  01
+Ns  00
+illum 2
+
+
+

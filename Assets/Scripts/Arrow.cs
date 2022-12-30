@@ -9,17 +9,15 @@ public class Arrow : MonoBehaviour
 		// remove the arrow after x seconds
 		Destroy(gameObject, 10);
 	}
-	private void OnTriggerEnter(Collider other)
+	private void OnTriggerEnter(Collider c)
 	{
 		// if the arrow hits a collider
-		Destroy(transform.GetComponent<Rigidbody>());
+		Destroy(this);
 
-		//   if hit enemy
-		if (other.gameObject.tag == "enemy")
-		{
-			// destroy the enemy
-			Destroy(other.gameObject);
-			Destroy(gameObject);
-		}
-	}
+        //   if hit enemy
+        if (c.gameObject.CompareTag("Bokoblin"))
+        {
+            c.gameObject.GetComponent<Bokoblinagent>().TakeDamage(5);
+        }
+    }
 }

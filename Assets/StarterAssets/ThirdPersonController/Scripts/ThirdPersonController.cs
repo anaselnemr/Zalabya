@@ -1,8 +1,14 @@
 ﻿using System;
+using System.Security.Cryptography.X509Certificates;
+using Unity.VisualScripting;
 using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using UnityEngine;
+using TMPro;
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
 using UnityEngine.InputSystem;
+using System.Collections;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using UnityEngine.XR;
 #endif
 
@@ -22,7 +28,6 @@ namespace StarterAssets
 		public Transform arrowPoint;
 		public GameObject playerFollowCamera;
 		public GameObject playerAimCamera;
-
 		public GameObject Swordhand;
 		public GameObject Shieldhand;
 		public GameObject Bowhand;
@@ -126,7 +131,15 @@ namespace StarterAssets
 		private const float _threshold = 0.01f;
 
 		private bool _hasAnimator;
-
+		private bool once = true;
+		private bool gliding = false;
+		private float Pos1 = 0f;
+		private bool mara = true;
+        private static int health = 24;
+        public Sprite fullhealth;
+		public Sprite emptyhealth;
+		public Image[] hearts;
+		public GameObject t;
 		private bool IsCurrentDeviceMouse
 		{
 			get
@@ -156,7 +169,6 @@ namespace StarterAssets
             GameObject.Find("Sword").SetActive(false);
             GameObject.Find("Shield").SetActive(false);
             GameObject.Find("Bowhand").SetActive(false);
-			
             _cinemachineTargetYaw = CinemachineCameraTarget.transform.rotation.eulerAngles.y;
 
 			_hasAnimator = TryGetComponent(out _animator);
@@ -176,17 +188,124 @@ namespace StarterAssets
 			_fallTimeoutDelta = FallTimeout;
 		}
 
-		private void Update()
+        bool isPlaying(string stateName)
+        {
+            if (_animator.GetCurrentAnimatorStateInfo(0).IsName(stateName) && _animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f)
+                return true;
+            else
+                return false;
+        }
+        public void TakeDamage(int damage)
+        {
+            Debug.Log("I AM DYINGGGG");
+            health -= damage;
+
+            if (health <= 0) DestroyEnemy();
+        }
+		public void HealthUpdate()
+		{
+			for(int i = 0; i < hearts.Length; i++)
+			{
+				if (i >= health)
+				{
+                    hearts[i].sprite = emptyhealth;
+                }
+
+            }
+		}
+        private void DestroyEnemy()
+        {
+            Destroy(gameObject);
+        }
+
+        public void OnTriggerStay(Collider c)
+        {
+
+            if (c.gameObject.CompareTag("Bokoblin") && isPlaying("Sword Slash") && once)
+            {
+				once = false;
+				MonoBehaviour w = c.gameObject.GetComponent<MonoBehaviour>();
+				string type = w.GetType().Name;
+				if (type == "Bokoblinagent")
+				{
+					c.gameObject.GetComponent<Bokoblinagent>().TakeDamage(10);
+				}
+				else
+				{
+                    c.gameObject.GetComponent<Moblinagent>().TakeDamage(10);
+
+                }
+            }
+			if (c.gameObject.CompareTag("Moblin") && isPlaying("Sword Slash") && once)
+            {
+                once = false;
+                MonoBehaviour w = c.gameObject.GetComponent<MonoBehaviour>();
+                string type = w.GetType().Name;
+                if (type == "Bokoblinagent")
+                {
+                    c.gameObject.GetComponent<Bokoblinagent>().TakeDamage(10);
+                }
+                else
+                {
+                    c.gameObject.GetComponent<Moblinagent>().TakeDamage(10);
+
+                }
+            }
+
+        }
+		public void OnTriggerEnter(Collider c)
+		{
+            if (c.gameObject.CompareTag("Next Level"))
+            {
+                Debug.Log("here");
+                /*			if(GameObject.Find("Bokoblin Attack").transform.childCount == 0 && GameObject.Find("Moblin Attack").transform.childCount == 0)
+                 *			
+                */
+                if (GameObject.Find("Bokoblin Attack").transform.childCount == 0)
+                {
+
+                    /*                    Debug.Log("DONE");
+										GameObject[] gos;
+										//get all the objects with the tag "myTag"
+										gos = GameObject.FindGameObjectsWithTag("Door");
+										//loop through the returned array of game objects and set each to active false
+										for (int i = 0; i < gos.Length; i++)
+										{
+											gos[i].SetActive(false);
+										}*/
+
+                    SceneManager.LoadScene(1);
+                    //Load level 2 
+                }
+                else
+                {
+                    Debug.Log("Job not finish");
+                    StartCoroutine(DisplayText());
+                }
+
+                //show panel with clear the area 
+
+            }
+        }
+		IEnumerator DisplayText()
+    {
+		t.SetActive(true);
+        yield return new WaitForSeconds(3);
+		t.SetActive(false);
+    }
+
+    private void Update()
 		{
 			_hasAnimator = TryGetComponent(out _animator);
-
+			if (!isPlaying("Sword Slash"))
+				once = true;
 			JumpAndGravity();
-			GroundedCheck();
+			HealthUpdate();
+            GroundedCheck();
+			FallDamageCheck();
 			Move();
 			AimShoot();
             // Gliding animation and action with setting the active weapons
-
-
 
             if (Input.GetKey(KeyCode.Space) && _verticalVelocity<0)
             {
@@ -198,10 +317,12 @@ namespace StarterAssets
 					Bowhand.SetActive(false);
 					Sword.SetActive(true);
 					Shield.SetActive(true);
+					gliding = true;
 
             }
 			else
             {
+				gliding = false;
                 Gravity = -15.0f;
 				gliderObj.SetActive(false);
 				_animator.SetBool("Hanging", false);
@@ -281,8 +402,31 @@ namespace StarterAssets
 
 
         }
+		private void FallDamageCheck()
+		{
 
-            private void AimShoot()
+            if (!Grounded && !gliding && mara)
+            {
+                Pos1 = transform.position.y;
+                mara = false;
+            }
+            if (gliding)
+            {
+                mara = true;
+                Pos1 = transform.position.y;
+            }
+            if (Grounded && !mara)
+            {
+                mara = true;
+                Debug.Log("Fall : " + (Pos1 - transform.position.y));
+                if (Pos1 - transform.position.y > 10)
+                {
+                    TakeDamage(24);
+                }
+            }
+
+        }
+        private void AimShoot()
 		{
 			// TODO: switch between (Bow) and (Sword - shield)
 
