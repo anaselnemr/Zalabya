@@ -1857,7 +1857,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2070925441746177912, guid: a1a802ecaf6775746bb2a929fb554ad8, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2070925441746177912, guid: a1a802ecaf6775746bb2a929fb554ad8, type: 3}
       propertyPath: m_LocalPosition.x
@@ -8383,6 +8383,10 @@ MonoBehaviour:
   BottomClamp: -30
   CameraAngleOverride: 0
   LockCameraPosition: 0
+  fullhealth: {fileID: 0}
+  emptyhealth: {fileID: 0}
+  hearts: []
+  t: {fileID: 0}
 --- !u!143 &1504992881
 CharacterController:
   m_ObjectHideFlags: 0
@@ -8452,7 +8456,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bombPoint: {fileID: 834380696}
-  bombPrefab: {fileID: 7389031910877994122, guid: f95b9ead880def3408b617265a3450b9, type: 3}
+  bombPrefab: {fileID: 468342686103928944, guid: a6418cb121366764a862754fe118bd29, type: 3}
   bombThrowForce: 10
 --- !u!1 &1523827413
 GameObject:
@@ -10105,7 +10109,7 @@ Transform:
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1839076151
 GameObject:

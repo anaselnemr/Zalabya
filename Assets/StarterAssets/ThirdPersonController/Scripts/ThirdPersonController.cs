@@ -33,8 +33,9 @@ namespace StarterAssets
 		public GameObject Bowhand;
 		public GameObject Sword;
 		public GameObject Shield;
-/*		public GameObject Bow;
-*/        private Boolean range = false;
+		/*		public GameObject Bow;
+		*/
+		private Boolean range = false;
 
 		[Header("Player")]
 		[Tooltip("Move speed of the character in m/s")]
@@ -135,8 +136,8 @@ namespace StarterAssets
 		private bool gliding = false;
 		private float Pos1 = 0f;
 		private bool mara = true;
-        private static int health = 24;
-        public Sprite fullhealth;
+		private static int health = 24;
+		public Sprite fullhealth;
 		public Sprite emptyhealth;
 		public Image[] hearts;
 		public GameObject t;
@@ -164,12 +165,12 @@ namespace StarterAssets
 
 		private void Start()
 		{
-            GameObject.Find("Swordhand").SetActive(true);
-            GameObject.Find("Shieldhand").SetActive(true);
-            GameObject.Find("Sword").SetActive(false);
-            GameObject.Find("Shield").SetActive(false);
-            GameObject.Find("Bowhand").SetActive(false);
-            _cinemachineTargetYaw = CinemachineCameraTarget.transform.rotation.eulerAngles.y;
+			GameObject.Find("Swordhand").SetActive(true);
+			GameObject.Find("Shieldhand").SetActive(true);
+			GameObject.Find("Sword").SetActive(false);
+			GameObject.Find("Shield").SetActive(false);
+			GameObject.Find("Bowhand").SetActive(false);
+			_cinemachineTargetYaw = CinemachineCameraTarget.transform.rotation.eulerAngles.y;
 
 			_hasAnimator = TryGetComponent(out _animator);
 			_animator.GetComponent<Animator>();
@@ -188,41 +189,41 @@ namespace StarterAssets
 			_fallTimeoutDelta = FallTimeout;
 		}
 
-        bool isPlaying(string stateName)
-        {
-            if (_animator.GetCurrentAnimatorStateInfo(0).IsName(stateName) && _animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f)
-                return true;
-            else
-                return false;
-        }
-        public void TakeDamage(int damage)
-        {
-            Debug.Log("I AM DYINGGGG");
-            health -= damage;
+		bool isPlaying(string stateName)
+		{
+			if (_animator.GetCurrentAnimatorStateInfo(0).IsName(stateName) && _animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f)
+				return true;
+			else
+				return false;
+		}
+		public void TakeDamage(int damage)
+		{
+			Debug.Log("I AM DYINGGGG");
+			health -= damage;
 
-            if (health <= 0) DestroyEnemy();
-        }
+			if (health <= 0) DestroyEnemy();
+		}
 		public void HealthUpdate()
 		{
-			for(int i = 0; i < hearts.Length; i++)
+			for (int i = 0; i < hearts.Length; i++)
 			{
 				if (i >= health)
 				{
-                    hearts[i].sprite = emptyhealth;
-                }
+					hearts[i].sprite = emptyhealth;
+				}
 
-            }
+			}
 		}
-        private void DestroyEnemy()
-        {
-            Destroy(gameObject);
-        }
+		private void DestroyEnemy()
+		{
+			Destroy(gameObject);
+		}
 
-        public void OnTriggerStay(Collider c)
-        {
+		public void OnTriggerStay(Collider c)
+		{
 
-            if (c.gameObject.CompareTag("Bokoblin") && isPlaying("Sword Slash") && once)
-            {
+			if (c.gameObject.CompareTag("Bokoblin") && isPlaying("Sword Slash") && once)
+			{
 				once = false;
 				MonoBehaviour w = c.gameObject.GetComponent<MonoBehaviour>();
 				string type = w.GetType().Name;
@@ -232,39 +233,39 @@ namespace StarterAssets
 				}
 				else
 				{
-                    c.gameObject.GetComponent<Moblinagent>().TakeDamage(10);
+					c.gameObject.GetComponent<Moblinagent>().TakeDamage(10);
 
-                }
-            }
+				}
+			}
 			if (c.gameObject.CompareTag("Moblin") && isPlaying("Sword Slash") && once)
-            {
-                once = false;
-                MonoBehaviour w = c.gameObject.GetComponent<MonoBehaviour>();
-                string type = w.GetType().Name;
-                if (type == "Bokoblinagent")
-                {
-                    c.gameObject.GetComponent<Bokoblinagent>().TakeDamage(10);
-                }
-                else
-                {
-                    c.gameObject.GetComponent<Moblinagent>().TakeDamage(10);
+			{
+				once = false;
+				MonoBehaviour w = c.gameObject.GetComponent<MonoBehaviour>();
+				string type = w.GetType().Name;
+				if (type == "Bokoblinagent")
+				{
+					c.gameObject.GetComponent<Bokoblinagent>().TakeDamage(10);
+				}
+				else
+				{
+					c.gameObject.GetComponent<Moblinagent>().TakeDamage(10);
 
-                }
-            }
+				}
+			}
 
-        }
+		}
 		public void OnTriggerEnter(Collider c)
 		{
-            if (c.gameObject.CompareTag("Next Level"))
-            {
-                Debug.Log("here");
-                /*			if(GameObject.Find("Bokoblin Attack").transform.childCount == 0 && GameObject.Find("Moblin Attack").transform.childCount == 0)
-                 *			
-                */
-                if (GameObject.Find("Bokoblin Attack").transform.childCount == 0)
-                {
+			if (c.gameObject.CompareTag("Next Level"))
+			{
+				Debug.Log("here");
 
-                    /*                    Debug.Log("DONE");
+
+
+				if (GameObject.Find("Bokoblin Attack").transform.childCount == 0 && GameObject.Find("Moblin Attack").transform.childCount == 0)
+				{
+
+					/*                    Debug.Log("DONE");
 										GameObject[] gos;
 										//get all the objects with the tag "myTag"
 										gos = GameObject.FindGameObjectsWithTag("Door");
@@ -274,80 +275,80 @@ namespace StarterAssets
 											gos[i].SetActive(false);
 										}*/
 
-                    SceneManager.LoadScene(1);
-                    //Load level 2 
-                }
-                else
-                {
-                    Debug.Log("Job not finish");
-                    StartCoroutine(DisplayText());
-                }
+					SceneManager.LoadScene(1);
+					//Load level 2 
+				}
+				else
+				{
+					Debug.Log("Job not finish");
+					StartCoroutine(DisplayText());
+				}
 
-                //show panel with clear the area 
+				//show panel with clear the area 
 
-            }
-        }
+			}
+		}
 		IEnumerator DisplayText()
-    {
-		t.SetActive(true);
-        yield return new WaitForSeconds(3);
-		t.SetActive(false);
-    }
+		{
+			t.SetActive(true);
+			yield return new WaitForSeconds(3);
+			t.SetActive(false);
+		}
 
-    private void Update()
+		private void Update()
 		{
 			_hasAnimator = TryGetComponent(out _animator);
 			if (!isPlaying("Sword Slash"))
 				once = true;
 			JumpAndGravity();
 			HealthUpdate();
-            GroundedCheck();
+			GroundedCheck();
 			FallDamageCheck();
 			Move();
 			AimShoot();
-            // Gliding animation and action with setting the active weapons
+			// Gliding animation and action with setting the active weapons
 
-            if (Input.GetKey(KeyCode.Space) && _verticalVelocity<0)
-            {
-                Gravity = -1.0f;
-					gliderObj.SetActive(true);
-					_animator.SetBool("Hanging", true);
-					Swordhand.SetActive(false);
-					Shieldhand.SetActive(false);
-					Bowhand.SetActive(false);
-					Sword.SetActive(true);
-					Shield.SetActive(true);
-					gliding = true;
+			if (Input.GetKey(KeyCode.Space) && _verticalVelocity < 0)
+			{
+				Gravity = -1.0f;
+				gliderObj.SetActive(true);
+				_animator.SetBool("Hanging", true);
+				Swordhand.SetActive(false);
+				Shieldhand.SetActive(false);
+				Bowhand.SetActive(false);
+				Sword.SetActive(true);
+				Shield.SetActive(true);
+				gliding = true;
 
-            }
+			}
 			else
-            {
+			{
 				gliding = false;
-                Gravity = -15.0f;
+				Gravity = -15.0f;
 				gliderObj.SetActive(false);
 				_animator.SetBool("Hanging", false);
-                if (range == true)
-                {
-                    // bow and arrow set to active true
-                    Swordhand.SetActive(false);
-                    Shieldhand.SetActive(false);
-                    Sword.SetActive(true);
-                    Shield.SetActive(true);
-                    Bowhand.SetActive(true);
-                    range = true;
+				if (range == true)
+				{
+					// bow and arrow set to active true
+					Swordhand.SetActive(false);
+					Shieldhand.SetActive(false);
+					Sword.SetActive(true);
+					Shield.SetActive(true);
+					Bowhand.SetActive(true);
+					range = true;
 
-                }
-                else
-                {
-                    //sword and shield set to active true
-                    Swordhand.SetActive(true);
-                    Shieldhand.SetActive(true);
-                    Sword.SetActive(false);
-                    Shield.SetActive(false);
-                    Bowhand.SetActive(false);
-                    range = false;
-                }	
-            }
+				}
+				else
+				{
+					//sword and shield set to active true
+					Swordhand.SetActive(true);
+					Shieldhand.SetActive(true);
+					Sword.SetActive(false);
+					Shield.SetActive(false);
+					Bowhand.SetActive(false);
+					range = false;
+				}
+			}
 
 			if (Grounded)
 			{
@@ -366,67 +367,69 @@ namespace StarterAssets
 			//or sword block (left click)
 			// return animation after each trial
 
-            _animator.SetBool("Aiming", false);
-            _animator.SetBool("AimShoot", false);
-            _animator.SetBool("ShieldBlock", false);
-            playerFollowCamera.SetActive(true);
-            playerAimCamera.SetActive(false);
+			_animator.SetBool("Aiming", false);
+			_animator.SetBool("AimShoot", false);
+			_animator.SetBool("ShieldBlock", false);
+			playerFollowCamera.SetActive(true);
+			playerAimCamera.SetActive(false);
 
-            if (Input.GetMouseButton(1))
-            {
-                if (range)
-                {
-                    _animator.SetBool("Aiming", true);
-                    playerFollowCamera.SetActive(false);
-                    playerAimCamera.SetActive(true);
-                }
-
-                else
-                {
-                    _animator.SetBool("ShieldBlock", true);
-                }
-            }
-
-            if (Input.GetMouseButton(0)){
-
-				if (range && _animator.GetBool(("Aiming"))) {
-                    _animator.SetBool("AimShoot",true);
-                }
-
-				if(!range)
+			if (Input.GetMouseButton(1))
+			{
+				if (range)
 				{
-                    _animator.SetTrigger("SwordSlash");
-                }
+					_animator.SetBool("Aiming", true);
+					playerFollowCamera.SetActive(false);
+					playerAimCamera.SetActive(true);
+				}
+
+				else
+				{
+					_animator.SetBool("ShieldBlock", true);
+				}
+			}
+
+			if (Input.GetMouseButton(0))
+			{
+
+				if (range && _animator.GetBool(("Aiming")))
+				{
+					_animator.SetBool("AimShoot", true);
+				}
+
+				if (!range)
+				{
+					_animator.SetTrigger("SwordSlash");
+				}
 			}
 
 
 
-        }
+		}
 		private void FallDamageCheck()
 		{
 
-            if (!Grounded && !gliding && mara)
-            {
-                Pos1 = transform.position.y;
-                mara = false;
-            }
-            if (gliding)
-            {
-                mara = true;
-                Pos1 = transform.position.y;
-            }
-            if (Grounded && !mara)
-            {
-                mara = true;
-                Debug.Log("Fall : " + (Pos1 - transform.position.y));
-                if (Pos1 - transform.position.y > 10)
-                {
-                    TakeDamage(24);
-                }
-            }
+			if (!Grounded && !gliding && mara)
+			{
+				Pos1 = transform.position.y;
+				mara = false;
+			}
+			if (gliding)
+			{
+				mara = true;
+				Pos1 = transform.position.y;
+			}
+			if (Grounded && !mara)
+			{
+				mara = true;
+				Debug.Log("Fall : " + (Pos1 - transform.position.y));
+				if (Pos1 - transform.position.y > 10)
+				{
+					TakeDamage(24);
+				}
+			}
 
-        }
-        private void AimShoot()
+		}
+		private void AimShoot()
 		{
 			// TODO: switch between (Bow) and (Sword - shield)
 
@@ -438,7 +441,7 @@ namespace StarterAssets
 				playerAimCamera.SetActive(true);
 			}
 			else
-			if(range)
+			if (range)
 			{
 				_animator.SetBool("Aiming", false);
 				_animator.SetBool("AimShoot", false);

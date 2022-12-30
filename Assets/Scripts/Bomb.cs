@@ -26,6 +26,43 @@ public class Bomb : MonoBehaviour
 			Rigidbody rb = nearbyObject.GetComponent<Rigidbody>();
 			if (rb == null) continue;
 
+
+			// if (rb.gameObject.CompareTag("Bokoblin") || rb.gameObject.CompareTag("Moblin"))
+			// 	rb.gameObject.GetComponent<Bokoblinagent>().TakeDamage(5);
+
+
+			if (rb.gameObject.CompareTag("Bokoblin"))
+			{
+				MonoBehaviour w = rb.gameObject.GetComponent<MonoBehaviour>();
+				string type = w.GetType().Name;
+				if (type == "Bokoblinagent")
+				{
+					rb.gameObject.GetComponent<Bokoblinagent>().TakeDamage(10);
+				}
+				else
+				{
+					rb.gameObject.GetComponent<Moblinagent>().TakeDamage(10);
+
+				}
+			}
+			if (rb.gameObject.CompareTag("Moblin"))
+			{
+				MonoBehaviour w = rb.gameObject.GetComponent<MonoBehaviour>();
+				string type = w.GetType().Name;
+				if (type == "Bokoblinagent")
+				{
+					rb.gameObject.GetComponent<Bokoblinagent>().TakeDamage(10);
+				}
+				else
+				{
+					rb.gameObject.GetComponent<Moblinagent>().TakeDamage(10);
+
+				}
+			}
+
+
+
+
 			rb.AddExplosionForce(explosionForce, transform.position, explosionRadius);
 		}
 

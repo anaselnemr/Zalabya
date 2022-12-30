@@ -14,10 +14,17 @@ public class Arrow : MonoBehaviour
 		// if the arrow hits a collider
 		Destroy(this);
 
-        //   if hit enemy
-        if (c.gameObject.CompareTag("Bokoblin"))
-        {
-            c.gameObject.GetComponent<Bokoblinagent>().TakeDamage(5);
-        }
-    }
+		//   if hit enemy
+		if (c.gameObject.CompareTag("Bokoblin"))
+		{
+			c.gameObject.GetComponent<Bokoblinagent>().TakeDamage(5);
+		}
+		if (c.gameObject.CompareTag("Moblin"))
+		{
+			c.gameObject.GetComponent<Moblinagent>().TakeDamage(5);
+		}
+
+
+
+	}
 }
