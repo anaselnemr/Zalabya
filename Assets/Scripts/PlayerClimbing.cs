@@ -33,6 +33,7 @@ public class PlayerClimbing : MonoBehaviour
 		if (Input.GetKeyDown(KeyCode.LeftShift) && isClimbing)
 		{
 			Debug.Log("isClmbing false");
+			animator.StopPlayback();
 			isClimbing = false;
 			return;
 		}
@@ -41,16 +42,15 @@ public class PlayerClimbing : MonoBehaviour
 		{
 			Debug.Log("isClmbing true");
 			isClimbing = true;
-			transform.GetComponent<ThirdPersonController>().Gravity = 0;
 		}
 
 
 		if (isClimbing)
 		{
-			animator.PlayInFixedTime("climb_up");
 
 			if (Input.GetKey("w"))
 			{
+				animator.PlayInFixedTime("climb_up");
 				transform.position += point.transform.up * Time.deltaTime * UpwardSpeed;
 			}
 
@@ -75,11 +75,25 @@ public class PlayerClimbing : MonoBehaviour
 
 		if (!isWallFront())
 		{
-			isClimbing = false;
-			Debug.Log("isClmbing false");
-			transform.GetComponent<ThirdPersonController>().Gravity = -15f;
-		}
+			// can be because he reached the top
+			RaycastHit hit;
+			if (isClimbing && Physics.Raycast(transform.position, transform.forward, out hit, 1f))
+			{
+				if (hit.transform.CompareTag("Wall"))
+				{
+					Debug.Log("Over Edge");
+					animator.PlayInFixedTime("over_edge");
+					transform.position += new Vector3(0, 2.5f, 0);
+					transform.Translate(transform.forward * 1f);
 
+				}
+			}
+
+			isClimbing = false;
+			Debug.Log("isClmbing false no Wall");
+			animator.StopPlayback();
+
+		}
 
 	}
 
