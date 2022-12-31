@@ -10,17 +10,33 @@ public class Attack : MonoBehaviour, IState
 	[Header("Attack Properties")]
 	public float attackStrength;
 
-	StasisController playerController;
+	// StasisController playerController;
 	LayerMask stasisLayerMask;
 	RaycastHit hit;
 	Stasis stasis;
 
 	void Start()
 	{
-		playerController = GetComponent<StasisController>();
+		// playerController = GetComponent<StasisController>();
 		stasis = GetComponent<Stasis>();
 		stasisLayerMask = stasis.layerMask;
 	}
+
+	bool stEnabled = false;
+	// private void Update()
+	// {
+	// 	if (Input.GetKey(KeyCode.R))
+	// 	{
+	// 		if (stEnabled)
+	// 			OnEnd();
+
+	// 		OnActivate();
+	// 		stEnabled = true;
+	// 	}
+
+	// 	// if (stEnabled)
+	// 	OnUpdate();
+	// }
 
 	public void OnActivate()
 	{
@@ -34,13 +50,14 @@ public class Attack : MonoBehaviour, IState
 	// called via animation event when character kicks
 	void OnAttack()
 	{
-		Camera mainCam = playerController.MainCamera;
+		Camera mainCam = Camera.main;
+		// Camera mainCam = playerController.MainCamera;
 		if (Physics.Raycast(mainCam.transform.position, mainCam.transform.forward, out hit, 30.0f, stasisLayerMask))
 		{
 			Vector3 closestPoint = hit.collider.ClosestPointOnBounds(transform.position);
 			stasis.AddStasisForce(new StasisMomentum(mainCam.transform.forward * attackStrength, closestPoint - transform.position));
 		}
-		playerController.SM.SetState<Movement>();
+		// playerController.SM.SetState<Movement>();
 	}
 
 

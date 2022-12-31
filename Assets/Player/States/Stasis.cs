@@ -46,7 +46,7 @@ public class Stasis : MonoBehaviour, IState
 	[Tooltip("Layer mask for what stasis should interact with. (Checked items are stasis-able)")]
 	public LayerMask layerMask;
 
-	StasisController playerController;
+	// StasisController playerController;
 	public Camera MainCamera;
 	CinemachineCameraOffset cinemachineCameraOffset;
 	bool isOnCooldown = false;
@@ -55,12 +55,28 @@ public class Stasis : MonoBehaviour, IState
 	IEnumerator hightlightObjectCoroutine;
 	StasisMomentum momentum;
 
+	bool stEnabled = false;
 
 	void Awake()
 	{
-		playerController = GetComponent<StasisController>();
+		// playerController = GetComponent<StasisController>();
 		//   MainCamera = playerController.MainCamera;
 		cinemachineCameraOffset = cinemachineCam.GetComponent<CinemachineCameraOffset>();
+	}
+
+	private void Update()
+	{
+		if (Input.GetKey(KeyCode.E))
+		{
+			if (stEnabled)
+				OnEnd();
+
+			OnActivate();
+			stEnabled = true;
+		}
+
+		if (stEnabled)
+			OnUpdate();
 	}
 
 	public void OnActivate()
@@ -96,7 +112,9 @@ public class Stasis : MonoBehaviour, IState
 		{
 			if (!isOnCooldown)
 				StasisActivate();
-			playerController.SM.SetState<Movement>();
+			// playerController.SM.SetState<Movement>();
+			OnEnd();
+			stEnabled = false;
 		}
 
 	}
@@ -110,10 +128,11 @@ public class Stasis : MonoBehaviour, IState
 			{ // if the material has a "Main Color"
 				Color prev_color = mat.color;
 				mat.color = Color.yellow;
-				while (Physics.Raycast(MainCamera.transform.position, MainCamera.transform.forward, out hit, Mathf.Infinity, layerMask) && playerController.SM.getCurrState() is Stasis)
+				while (Physics.Raycast(MainCamera.transform.position, MainCamera.transform.forward, out hit, Mathf.Infinity, layerMask))
 				{
 					if (hit.collider.gameObject != obj)
 					{ // if we've hovered over a different gameobject while looking at the current one
+
 						mat.color = prev_color;
 						shouldCheckStasisRay = true;
 						yield break;
