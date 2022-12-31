@@ -15,6 +15,8 @@ public class StasisAttack : MonoBehaviour
 	RaycastHit hit;
 	Stasis stasis;
 
+
+
 	void Start()
 	{
 		// playerController = GetComponent<StasisController>();
@@ -25,6 +27,9 @@ public class StasisAttack : MonoBehaviour
 	bool stEnabled = false;
 	private void Update()
 	{
+		if (!Abilities.activeStasis)
+			return;
+
 		if (Input.GetKey(KeyCode.R))
 		{
 			if (stEnabled)

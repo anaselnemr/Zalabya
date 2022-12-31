@@ -820,7 +820,7 @@ GameObject:
   - component: {fileID: 134850972}
   m_Layer: 8
   m_Name: Cube (1)
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9184,7 +9184,7 @@ MonoBehaviour:
   bombPoint: {fileID: 834380696}
   bombPrefab: {fileID: 468342686103928944, guid: a6418cb121366764a862754fe118bd29, type: 3}
   bombThrowForce: 10
-  chestpoint: {fileID: 0}
+  chestpoint: {fileID: 1612047472}
 --- !u!114 &1504992885
 MonoBehaviour:
   m_ObjectHideFlags: 0

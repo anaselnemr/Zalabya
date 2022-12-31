@@ -66,7 +66,10 @@ public class Stasis : MonoBehaviour
 
 	private void Update()
 	{
-		if (Input.GetKey(KeyCode.E))
+		if (!Abilities.activeStasis)
+			return;
+
+		if (Input.GetKey(KeyCode.Q))
 		{
 			if (stEnabled)
 				OnEnd();
@@ -108,7 +111,7 @@ public class Stasis : MonoBehaviour
 			}
 		}
 
-		if (!Input.GetKey(KeyCode.E))
+		if (!Input.GetKey(KeyCode.Q))
 		{
 			if (!isOnCooldown)
 				StasisActivate();

@@ -13,6 +13,8 @@ public class Abilities : MonoBehaviour
 	// =====
 	private Rigidbody object_grabbed;
 	public GameObject chestpoint;
+	// 
+	public static bool activeStasis = false;
 
 
 	private void FixedUpdate()
@@ -65,10 +67,7 @@ public class Abilities : MonoBehaviour
 			}
 
 		}
-		// if (Input.GetKeyUp(KeyCode.Q))
-		// {
-		// 	Release();
-		// }
+
 
 		if (selectedAbility == 1 && Input.GetKeyUp(KeyCode.Q))
 		{
@@ -85,6 +84,13 @@ public class Abilities : MonoBehaviour
 			}
 		}
 
+		if (selectedAbility == 4 && Input.GetKeyDown(KeyCode.Q))
+		{
+			// TODO: Stasis
+			activeStasis = true;
+		}
+
+
 	}
 
 	void Release()
@@ -93,6 +99,8 @@ public class Abilities : MonoBehaviour
 
 		if (currentBomb != null)
 			currentBomb.GetComponent<Bomb>().Explode();
+
+		activeStasis = false;
 
 	}
 
