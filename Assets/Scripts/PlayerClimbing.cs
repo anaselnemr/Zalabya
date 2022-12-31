@@ -26,19 +26,15 @@ public class PlayerClimbing : MonoBehaviour
 	private void FixedUpdate()
 	{
 
-		// Debug.Log(wall.transform.forward);
 
-		// Debug.DrawRay(point.transform.position, point.transform.forward * 1000, Color.red);
-
-		if (Input.GetKeyDown(KeyCode.LeftShift) && isClimbing)
+		if (Input.GetKeyUp(KeyCode.LeftShift) && isClimbing)
 		{
 			Debug.Log("isClmbing false");
-			animator.StopPlayback();
 			isClimbing = false;
-			return;
+			animator.PlayInFixedTime("Idle Walk Run Blend");
 		}
 
-		if (Input.GetKeyDown(KeyCode.LeftShift) && isWallFront())
+		if (!isClimbing && Input.GetKey(KeyCode.LeftShift) && isWallFront())
 		{
 			Debug.Log("isClmbing true");
 			isClimbing = true;
@@ -50,25 +46,30 @@ public class PlayerClimbing : MonoBehaviour
 
 			if (Input.GetKey("w"))
 			{
-				animator.PlayInFixedTime("climb_up");
+				animator.Play("climb_up");
 				transform.position += point.transform.up * Time.deltaTime * UpwardSpeed;
 			}
-
+			else
 			if (Input.GetKey("s"))
 			{
+				animator.Play("climb_down");
 				transform.position += -point.transform.up * Time.deltaTime * UpwardSpeed;
 			}
-
+			else
 			if (Input.GetKey("d"))
 			{
-				// transform.position += -point.transform.forward * Time.deltaTime * UpwardSpeed;
+				animator.Play("climb_right");
 				transform.Translate(wall.transform.right * Time.deltaTime * UpwardSpeed);
 			}
-
+			else
 			if (Input.GetKey("a"))
 			{
-				// transform.position += point.transform.forward * Time.deltaTime * UpwardSpeed;
+				animator.Play("climb_left");
 				transform.Translate(-wall.transform.right * Time.deltaTime * UpwardSpeed);
+			}
+			else
+			{
+				animator.Play("climb_idle");
 			}
 
 		}
@@ -82,17 +83,15 @@ public class PlayerClimbing : MonoBehaviour
 				if (hit.transform.CompareTag("Wall"))
 				{
 					Debug.Log("Over Edge");
-					animator.PlayInFixedTime("over_edge");
+					animator.Play("over_edge");
 					transform.position += new Vector3(0, 2.5f, 0);
-					transform.Translate(transform.forward * 1f);
+					transform.Translate(point.transform.forward * 0.5f, Space.World);
 
 				}
 			}
 
 			isClimbing = false;
 			Debug.Log("isClmbing false no Wall");
-			animator.StopPlayback();
-
 		}
 
 	}
