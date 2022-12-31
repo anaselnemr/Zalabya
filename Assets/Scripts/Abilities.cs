@@ -65,10 +65,10 @@ public class Abilities : MonoBehaviour
 			}
 
 		}
-		if (Input.GetKeyUp(KeyCode.Q))
-		{
-			Release();
-		}
+		// if (Input.GetKeyUp(KeyCode.Q))
+		// {
+		// 	Release();
+		// }
 
 		if (selectedAbility == 1 && Input.GetKeyUp(KeyCode.Q))
 		{

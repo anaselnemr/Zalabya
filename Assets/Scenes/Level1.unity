@@ -108,11 +108,11 @@ NavMeshSettings:
     agentTypeID: 0
     agentRadius: 1
     agentHeight: 3
-    agentSlope: 45
-    agentClimb: 1
+    agentSlope: 60
+    agentClimb: 1.62
     ledgeDropHeight: 0
     maxJumpAcrossDistance: 0
-    minRegionArea: 2
+    minRegionArea: 1.52
     manualCellSize: 0
     cellSize: 0.33333334
     manualTileSize: 0
@@ -556,7 +556,7 @@ MonoBehaviour:
   health: 20
   walkPointRange: 10
   Healthbar: {fileID: 2093275388}
-  timeBetweenAttacks: 5
+  timeBetweenAttacks: 15
   projectile: {fileID: 0}
   sightRange: 12
   attackRange: 3
@@ -1793,6 +1793,11 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 951061035023507180, guid: 46463cac868e82c489f7106b87a112cc, type: 3}
+--- !u!1 &232831653 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1562119382739742, guid: c07f24e35f07ce74ba43afa35d48adf7, type: 3}
+  m_PrefabInstance: {fileID: 1831826114}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &236695272 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2182345440730271573, guid: 46463cac868e82c489f7106b87a112cc, type: 3}
@@ -3991,6 +3996,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 780127632}
     m_Modifications:
+    - target: {fileID: 1644306818871154017, guid: eeda9f927753b194db689012d63aa8f7, type: 3}
+      propertyPath: m_Mass
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 1644306818871154018, guid: eeda9f927753b194db689012d63aa8f7, type: 3}
       propertyPath: m_Name
       value: Bokoblin_Red (1)
@@ -4360,6 +4369,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 780127632}
     m_Modifications:
+    - target: {fileID: 1644306818871154017, guid: eeda9f927753b194db689012d63aa8f7, type: 3}
+      propertyPath: m_Mass
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 1644306818871154018, guid: eeda9f927753b194db689012d63aa8f7, type: 3}
       propertyPath: m_Name
       value: Bokoblin_Red (3)
@@ -6683,6 +6696,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1135575478}
     m_Modifications:
+    - target: {fileID: 1644306818871154017, guid: eeda9f927753b194db689012d63aa8f7, type: 3}
+      propertyPath: m_Mass
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 1644306818871154018, guid: eeda9f927753b194db689012d63aa8f7, type: 3}
       propertyPath: m_Name
       value: Bokoblin_Red (1)
@@ -6744,8 +6761,16 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1644306818871154031, guid: eeda9f927753b194db689012d63aa8f7, type: 3}
+      propertyPath: attackRange
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1644306818871154031, guid: eeda9f927753b194db689012d63aa8f7, type: 3}
       propertyPath: walkPointRange
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1644306818871154031, guid: eeda9f927753b194db689012d63aa8f7, type: 3}
+      propertyPath: timeBetweenAttacks
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 1644306820587593111, guid: eeda9f927753b194db689012d63aa8f7, type: 3}
       propertyPath: m_SizeDelta.x
@@ -9209,8 +9234,8 @@ NavMeshObstacle:
   m_GameObject: {fileID: 967405131}
   m_Enabled: 1
   serializedVersion: 3
-  m_Shape: 1
-  m_Extents: {x: 4.6450005, y: 2.762, z: 4.197}
+  m_Shape: 0
+  m_Extents: {x: 4.6450005, y: 2.762, z: 4.6450005}
   m_MoveThreshold: 0.1
   m_Carve: 1
   m_CarveOnlyStationary: 1
@@ -9444,12 +9469,12 @@ NavMeshObstacle:
   m_GameObject: {fileID: 1005553948}
   m_Enabled: 1
   serializedVersion: 3
-  m_Shape: 1
-  m_Extents: {x: 4.6450005, y: 2.762, z: 4.197}
+  m_Shape: 0
+  m_Extents: {x: 4, y: 4.285, z: 4}
   m_MoveThreshold: 0.1
   m_Carve: 1
   m_CarveOnlyStationary: 1
-  m_Center: {x: 0, y: 2.5570002, z: 0}
+  m_Center: {x: 0, y: 1.33, z: 0}
   m_TimeToStationary: 0.5
 --- !u!1 &1006703408
 GameObject:
@@ -10099,6 +10124,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1135575478}
     m_Modifications:
+    - target: {fileID: 1644306818871154017, guid: eeda9f927753b194db689012d63aa8f7, type: 3}
+      propertyPath: m_Mass
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 1644306818871154018, guid: eeda9f927753b194db689012d63aa8f7, type: 3}
       propertyPath: m_Name
       value: Bokoblin_Red (2)
@@ -10160,8 +10189,16 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1644306818871154031, guid: eeda9f927753b194db689012d63aa8f7, type: 3}
+      propertyPath: attackRange
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1644306818871154031, guid: eeda9f927753b194db689012d63aa8f7, type: 3}
       propertyPath: walkPointRange
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1644306818871154031, guid: eeda9f927753b194db689012d63aa8f7, type: 3}
+      propertyPath: timeBetweenAttacks
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 1644306820587593111, guid: eeda9f927753b194db689012d63aa8f7, type: 3}
       propertyPath: m_SizeDelta.x
@@ -14276,7 +14313,7 @@ MonoBehaviour:
   health: 20
   walkPointRange: 10
   Healthbar: {fileID: 965156790}
-  timeBetweenAttacks: 5
+  timeBetweenAttacks: 15
   projectile: {fileID: 0}
   sightRange: 12
   attackRange: 3
@@ -16579,6 +16616,22 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4243724423293762, guid: c07f24e35f07ce74ba43afa35d48adf7, type: 3}
   m_PrefabInstance: {fileID: 1831826114}
   m_PrefabAsset: {fileID: 0}
+--- !u!208 &1765468016
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 232831653}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 4.6450005, y: 2.762, z: 4.197}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 2.5570002, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &1770011015 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7417390916425276390, guid: 46463cac868e82c489f7106b87a112cc, type: 3}
@@ -18809,6 +18862,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1135575478}
     m_Modifications:
+    - target: {fileID: 1644306818871154017, guid: eeda9f927753b194db689012d63aa8f7, type: 3}
+      propertyPath: m_Mass
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 1644306818871154018, guid: eeda9f927753b194db689012d63aa8f7, type: 3}
       propertyPath: m_Name
       value: Bokoblin_Red (3)
@@ -18870,8 +18927,16 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1644306818871154031, guid: eeda9f927753b194db689012d63aa8f7, type: 3}
+      propertyPath: attackRange
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1644306818871154031, guid: eeda9f927753b194db689012d63aa8f7, type: 3}
       propertyPath: walkPointRange
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1644306818871154031, guid: eeda9f927753b194db689012d63aa8f7, type: 3}
+      propertyPath: timeBetweenAttacks
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 1644306820587593111, guid: eeda9f927753b194db689012d63aa8f7, type: 3}
       propertyPath: m_SizeDelta.x
@@ -19953,6 +20018,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9012767602302085466, guid: 6ccb7bc1a38e61d4ca0da9d6645c0a89, type: 3}
+      propertyPath: m_StoppingDistance
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 9012767602302085467, guid: 6ccb7bc1a38e61d4ca0da9d6645c0a89, type: 3}
       propertyPath: player
       value: 
@@ -19960,6 +20029,14 @@ PrefabInstance:
     - target: {fileID: 9012767602302085467, guid: 6ccb7bc1a38e61d4ca0da9d6645c0a89, type: 3}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9012767602302085467, guid: 6ccb7bc1a38e61d4ca0da9d6645c0a89, type: 3}
+      propertyPath: attackRange
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 9012767602302085467, guid: 6ccb7bc1a38e61d4ca0da9d6645c0a89, type: 3}
+      propertyPath: timeBetweenAttacks
+      value: 20
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6ccb7bc1a38e61d4ca0da9d6645c0a89, type: 3}
