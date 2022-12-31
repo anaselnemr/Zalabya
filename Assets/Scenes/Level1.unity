@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.41227594, g: 0.48922887, b: 0.603285, a: 1}
+  m_IndirectSpecularColor: {r: 0.4122777, g: 0.4892311, b: 0.60328877, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -7701,6 +7701,11 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -4456230053071803161, guid: 46463cac868e82c489f7106b87a112cc, type: 3}
+--- !u!1 &803760275 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1839224485133482567, guid: aa2458f698358164d87d49bc0c6d54f5, type: 3}
+  m_PrefabInstance: {fileID: 1366841454}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &806020823 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4243724423293762, guid: c07f24e35f07ce74ba43afa35d48adf7, type: 3}
@@ -18396,6 +18401,7 @@ GameObject:
   - component: {fileID: 2008650228}
   - component: {fileID: 2008650227}
   - component: {fileID: 2008650233}
+  - component: {fileID: 2008650234}
   m_Layer: 6
   m_Name: PlayerArmature
   m_TagString: Player
@@ -18692,9 +18698,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bfbed08a22dd85429af5255e1ed121b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  selectedAbility: 1
   bombPoint: {fileID: 1965085029}
   bombPrefab: {fileID: 468342686103928944, guid: a6418cb121366764a862754fe118bd29, type: 3}
   bombThrowForce: 10
+  chestpoint: {fileID: 803760275}
+--- !u!114 &2008650234
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2008650225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c693596472a3bc439a4062c0693933d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  range: 1
+  UpwardSpeed: 3
+  point: {fileID: 782382927}
 --- !u!1001 &2010937718
 PrefabInstance:
   m_ObjectHideFlags: 0
