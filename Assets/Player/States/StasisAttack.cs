@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Attack : MonoBehaviour, IState
+public class StasisAttack : MonoBehaviour
 {
 	[Header("Reticle")]
 	public GameObject attackReticle;
@@ -23,20 +23,20 @@ public class Attack : MonoBehaviour, IState
 	}
 
 	bool stEnabled = false;
-	// private void Update()
-	// {
-	// 	if (Input.GetKey(KeyCode.R))
-	// 	{
-	// 		if (stEnabled)
-	// 			OnEnd();
+	private void Update()
+	{
+		if (Input.GetKey(KeyCode.R))
+		{
+			if (stEnabled)
+				OnEnd();
 
-	// 		OnActivate();
-	// 		stEnabled = true;
-	// 	}
+			OnActivate();
+			stEnabled = true;
+		}
 
-	// 	// if (stEnabled)
-	// 	OnUpdate();
-	// }
+		// if (stEnabled)
+		OnUpdate();
+	}
 
 	public void OnActivate()
 	{

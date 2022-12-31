@@ -27,7 +27,7 @@ public struct StasisMomentum
 	public Vector3 position;
 };
 
-public class Stasis : MonoBehaviour, IState
+public class Stasis : MonoBehaviour
 {
 	[Header("Stasis Attributes")]
 	public float stasisSeconds;
