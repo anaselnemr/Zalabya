@@ -11,6 +11,11 @@ TagManager:
   - Moblin
   - Next Level
   - Door
+  - fireBall
+  - bubble
+  - obstacle
+  - Link
+  - Boss1
   layers:
   - Default
   - TransparentFX

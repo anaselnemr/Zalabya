@@ -252,8 +252,16 @@ namespace StarterAssets
 
 				}
 			}
+            if (c.gameObject.CompareTag("Boss1") && isPlaying("Sword Slash") && once)
+            {
+                once = false;
 
-		}
+                    c.gameObject.GetComponent<bossScript>().TakeDamage(10);
+
+            }
+
+
+        }
 		public void OnTriggerEnter(Collider c)
 		{
 			if (c.gameObject.CompareTag("Next Level"))
