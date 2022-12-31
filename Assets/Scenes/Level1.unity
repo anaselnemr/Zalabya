@@ -20799,7 +20799,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9012767602302085466, guid: 6ccb7bc1a38e61d4ca0da9d6645c0a89, type: 3}
       propertyPath: m_StoppingDistance
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 9012767602302085467, guid: 6ccb7bc1a38e61d4ca0da9d6645c0a89, type: 3}
       propertyPath: player

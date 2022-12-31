@@ -91,7 +91,7 @@ public class PlayerClimbing : MonoBehaviour
 			}
 
 			isClimbing = false;
-			Debug.Log("isClmbing false no Wall");
+			// Debug.Log("isClmbing false no Wall");
 		}
 
 	}
