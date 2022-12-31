@@ -51,22 +51,26 @@ namespace StarterAssets
 
 		public void MoveInput(Vector2 newMoveDirection)
 		{
-			move = newMoveDirection;
+			if (!PlayerClimbing.isClimbing)
+				move = newMoveDirection;
 		}
 
 		public void LookInput(Vector2 newLookDirection)
 		{
-			look = newLookDirection;
+			if (!PlayerClimbing.isClimbing)
+				look = newLookDirection;
 		}
 
 		public void JumpInput(bool newJumpState)
 		{
-			jump = newJumpState;
+			if (!PlayerClimbing.isClimbing)
+				jump = newJumpState;
 		}
 
 		public void SprintInput(bool newSprintState)
 		{
-			sprint = newSprintState;
+			if (!PlayerClimbing.isClimbing)
+				sprint = newSprintState;
 		}
 
 		private void OnApplicationFocus(bool hasFocus)
@@ -79,24 +83,24 @@ namespace StarterAssets
 			Cursor.lockState = newState ? CursorLockMode.Locked : CursorLockMode.None;
 		}
 
-/*		public void OnAiming(InputValue value)
-		{
-			isAiming = value.isPressed;
-		}
+		/*		public void OnAiming(InputValue value)
+				{
+					isAiming = value.isPressed;
+				}
 
-		public void OnAimShoot(InputValue value)
-		{
-			isAimShoot = value.isPressed;
-		}
+				public void OnAimShoot(InputValue value)
+				{
+					isAimShoot = value.isPressed;
+				}
 
-		public void OnSwordSlash(InputValue value)
-		{
-			isSwordSlash = value.isPressed;
-		}
-		public void OnShieldBlock(InputValue value)
-		{
-			isShieldBlock = value.isPressed;
-		}*/
+				public void OnSwordSlash(InputValue value)
+				{
+					isSwordSlash = value.isPressed;
+				}
+				public void OnShieldBlock(InputValue value)
+				{
+					isShieldBlock = value.isPressed;
+				}*/
 
 	}
 

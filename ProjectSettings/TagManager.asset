@@ -16,6 +16,7 @@ TagManager:
   - obstacle
   - Link
   - Boss1
+  - Wall
   layers:
   - Default
   - TransparentFX

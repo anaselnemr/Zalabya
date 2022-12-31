@@ -252,16 +252,16 @@ namespace StarterAssets
 
 				}
 			}
-            if (c.gameObject.CompareTag("Boss1") && isPlaying("Sword Slash") && once)
-            {
-                once = false;
+			if (c.gameObject.CompareTag("Boss1") && isPlaying("Sword Slash") && once)
+			{
+				once = false;
 
-                    c.gameObject.GetComponent<bossScript>().TakeDamage(10);
+				c.gameObject.GetComponent<bossScript>().TakeDamage(10);
 
-            }
+			}
 
 
-        }
+		}
 		public void OnTriggerEnter(Collider c)
 		{
 			if (c.gameObject.CompareTag("Next Level"))
@@ -429,7 +429,7 @@ namespace StarterAssets
 			if (Grounded && !mara)
 			{
 				mara = true;
-				Debug.Log("Fall : " + (Pos1 - transform.position.y));
+				// Debug.Log("Fall : " + (Pos1 - transform.position.y));
 				if (Pos1 - transform.position.y > 10)
 				{
 					TakeDamage(24);
