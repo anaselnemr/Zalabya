@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using StarterAssets;
 using UnityEngine;
 
 public class PlayerClimbing : MonoBehaviour
 {
 
-	public float range = 10f;
+	public float range = 7f;
 
 	public float UpwardSpeed = 3.3f;
 
@@ -14,10 +15,12 @@ public class PlayerClimbing : MonoBehaviour
 
 	private GameObject wall;
 
+	Animator animator;
 	// Start is called before the first frame update
 	void Start()
 	{
 		wall = GameObject.FindGameObjectWithTag("Wall");
+		animator = GetComponent<Animator>();
 	}
 
 	private void FixedUpdate()
@@ -27,35 +30,33 @@ public class PlayerClimbing : MonoBehaviour
 
 		// Debug.DrawRay(point.transform.position, point.transform.forward * 1000, Color.red);
 
+		if (Input.GetKeyDown(KeyCode.LeftShift) && isClimbing)
+		{
+			Debug.Log("isClmbing false");
+			isClimbing = false;
+			return;
+		}
 
 		if (Input.GetKeyDown(KeyCode.LeftShift) && isWallFront())
 		{
 			Debug.Log("isClmbing true");
 			isClimbing = true;
-		}
-		else
-		if (Input.GetKeyDown(KeyCode.LeftShift) && isClimbing)
-		{
-			Debug.Log("isClmbing false");
-			isClimbing = false;
+			transform.GetComponent<ThirdPersonController>().Gravity = 0;
 		}
 
-		if (!isWallFront())
-		{
-			isClimbing = false;
-		}
 
 		if (isClimbing)
 		{
+			animator.PlayInFixedTime("climb_up");
 
 			if (Input.GetKey("w"))
 			{
-				transform.position += Camera.main.transform.up * Time.deltaTime * UpwardSpeed;
+				transform.position += point.transform.up * Time.deltaTime * UpwardSpeed;
 			}
 
 			if (Input.GetKey("s"))
 			{
-				transform.position += -Camera.main.transform.up * Time.deltaTime * UpwardSpeed;
+				transform.position += -point.transform.up * Time.deltaTime * UpwardSpeed;
 			}
 
 			if (Input.GetKey("d"))
@@ -72,15 +73,23 @@ public class PlayerClimbing : MonoBehaviour
 
 		}
 
+		if (!isWallFront())
+		{
+			isClimbing = false;
+			Debug.Log("isClmbing false");
+			transform.GetComponent<ThirdPersonController>().Gravity = -15f;
+		}
+
+
 	}
 
 
 	bool isWallFront()
 	{
 		RaycastHit hit;
-		if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, range))
+		if (Physics.Raycast(point.transform.position, point.transform.forward, out hit, range))
 		{
-			Debug.Log("HIT with " + hit.transform.name);
+			// Debug.Log("HIT with " + hit.transform.name);
 
 			if (hit.transform.CompareTag("Wall"))
 			{
