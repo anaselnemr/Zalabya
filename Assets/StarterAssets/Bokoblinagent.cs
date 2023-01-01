@@ -35,7 +35,12 @@ public class Bokoblinagent : MonoBehaviour
 	public int fastdamage;
 	private bool notagain = true;
 
-	private void Start()
+    //Sounds
+    public AudioSource EnemyWalkSound;
+    public AudioSource EnemyHitSound;
+    public AudioSource EnemyDeathSound;
+
+    private void Start()
 	{
 		// player = GameObject.Find("PlayerArmature").transform;
 		agent = GetComponent<NavMeshAgent>();
@@ -91,7 +96,8 @@ public class Bokoblinagent : MonoBehaviour
 
 	private void ChasePlayer()
 	{
-		Debug.Log("Chase Player");
+        EnemyWalkSound.Play();
+        Debug.Log("Chase Player");
 		if (gameObject.tag == "Moblin" && notagain)
 		{
 			notagain = false;
@@ -158,12 +164,13 @@ public class Bokoblinagent : MonoBehaviour
 		int i = Random.Range(0, 2);
 		if (health <= 0)
 		{
-
+            EnemyDeathSound.Play();
 			a.PlayInFixedTime("Die");
 			StartCoroutine(DestroyEnemy());
 		}
 		else
 		{
+            EnemyHitSound.Play();
 			if (i == 0)
 			{
 				a.PlayInFixedTime("damage");

@@ -7,7 +7,8 @@ public class FireBallScript : MonoBehaviour
 {
     // Start is called before the first frame update
     public ParticleSystem explosionAnimation ; // when hitting somthing will play this
-    
+    public AudioSource FireballSound;
+
     void Start()
     {
         
@@ -28,6 +29,7 @@ public class FireBallScript : MonoBehaviour
     }
 
     public void OnTriggerEnter(Collider c) { // here will break the ball w5las hide + animatio
+        FireballSound.Play();
         string tag = c.gameObject.tag; // just hide it
         Debug.Log("ball hit something"+tag); 
         //  c.gameObject.transform.parent.gameObject.PlayHitSound();

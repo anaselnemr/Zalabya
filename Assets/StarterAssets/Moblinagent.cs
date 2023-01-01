@@ -20,8 +20,14 @@ public class Moblinagent : MonoBehaviour
 	public float walkPointRange;
 	public Slider Healthbar;
 
-	//Attacking
-	public float timeBetweenAttacks;
+    //Sounds
+    public AudioSource EnemyWalkSound;
+    public AudioSource EnemyHitSound;
+    public AudioSource EnemyDeathSound;
+
+
+    //Attacking
+    public float timeBetweenAttacks;
 	bool alreadyAttacked;
 	public GameObject projectile;
 
@@ -93,7 +99,11 @@ public class Moblinagent : MonoBehaviour
 
 	private void ChasePlayer()
 	{
-		Debug.Log("Chase Player");
+
+        EnemyWalkSound.Play();
+
+
+        Debug.Log("Chase Player");
 		if (gameObject.tag == "Moblin " && notagain)
 		{
 			notagain = false;
@@ -132,20 +142,20 @@ public class Moblinagent : MonoBehaviour
 	{
 
 
-		if (c.gameObject.CompareTag("Hero") && isPlaying("Fast attack") && once)
-		{
-			once = false;
-			Debug.Log(c.gameObject.transform.parent.gameObject.transform.parent.name);
-			c.gameObject.transform.parent.gameObject.transform.parent.GetComponent<ThirdPersonController>().TakeDamage(fastdamage);
-		}
-		if (c.gameObject.CompareTag("Hero") && isPlaying("Slow attack") && once)
-		{
-			once = false;
-			Debug.Log(c.gameObject.transform.parent.gameObject.transform.parent.name);
-			c.gameObject.transform.parent.gameObject.transform.parent.GetComponent<ThirdPersonController>().TakeDamage(slowdamage);
-		}
+        if (c.gameObject.CompareTag("Hero") && isPlaying("Fast attack") && once && a.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.6f)
+        {
+            once = false;
+            Debug.Log(c.gameObject.transform.parent.gameObject.transform.parent.name);
+            c.gameObject.transform.parent.gameObject.transform.parent.GetComponent<ThirdPersonController>().TakeDamage(fastdamage);
+        }
+        if (c.gameObject.CompareTag("Hero") && isPlaying("Slow attack") && once && a.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.6f)
+        {
+            once = false;
+            Debug.Log(c.gameObject.transform.parent.gameObject.transform.parent.name);
+            c.gameObject.transform.parent.gameObject.transform.parent.GetComponent<ThirdPersonController>().TakeDamage(slowdamage);
+        }
 
-	}
+    }
 	bool isPlaying(string stateName)
 	{
 
@@ -156,16 +166,18 @@ public class Moblinagent : MonoBehaviour
 	}
 	public void TakeDamage(int damage)
 	{
+
 		health -= damage;
 		int i = Random.Range(0, 2);
 		if (health <= 0)
 		{
-
+            EnemyDeathSound.Play();
 			a.PlayInFixedTime("Die");
 			StartCoroutine(DestroyEnemy());
 		}
 		else
 		{
+            EnemyHitSound.Play();
 			if (i == 0)
 			{
 				a.PlayInFixedTime("damage");

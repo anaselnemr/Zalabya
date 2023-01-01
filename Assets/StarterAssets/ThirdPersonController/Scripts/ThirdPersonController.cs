@@ -35,6 +35,8 @@ namespace StarterAssets
 		public GameObject Bowhand;
 		public GameObject Sword;
 		public GameObject Shield;
+
+		public AudioSource DeathSound;
 		/*		public GameObject Bow;
 		*/
 		private Boolean combatBow = false;
@@ -244,6 +246,7 @@ namespace StarterAssets
 		}
 		IEnumerator DestroyEnemy()
 		{
+			DeathSound.Play();
 			_animator.PlayInFixedTime("dying");
 			yield return new WaitForSeconds(2);
 
@@ -494,7 +497,7 @@ namespace StarterAssets
 					_animator.SetBool("AimShoot", true);
 				}
 
-				if (!combatBow && !_input.sprint)
+				if (!combatBow && _speed==0f)
 				{
 					_animator.SetTrigger("SwordSlash");
 				}

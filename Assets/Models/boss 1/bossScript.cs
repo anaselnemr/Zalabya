@@ -109,10 +109,12 @@ public class bossScript : MonoBehaviour
 
     
     public AudioSource ThemeSound ;
-    //  public AudioSource ScreamSound ;
+    public AudioSource TpSound;
+    public AudioSource ChargeSound ;
+    public AudioSource DeathSound;
+
     // public AudioSource FireBallSound ;
-    public AudioSource DeathSound ;
-   
+
     public AudioSource FireBallHitSound ;
     public AudioSource ExplodeSound ;
     public GameObject Message;
@@ -129,6 +131,7 @@ public class bossScript : MonoBehaviour
     void Start()
     {
         // chargeAnimation.Stop();
+        ThemeSound.Play();
         navMeshAgent = GetComponent<NavMeshAgent>(); 
         animator = GetComponent<Animator>() ;
 
@@ -231,8 +234,9 @@ public class bossScript : MonoBehaviour
                                   );
                                 navMeshAgent.Warp(newPosition);
                                 lastPosition = newPosition;
-                            }
-                        }; break;
+                                TpSound.Play();
+                                }
+                            }; break;
                         case int n when (n >= 4 && n <= 10 ):{ // normal attack
                                
                             if (canAttack && FinishedAllAni ){ 
@@ -317,13 +321,17 @@ public class bossScript : MonoBehaviour
             fireBall.transform.position = Vector3.Lerp(transform.position +new Vector3(0, 8, 0), currentPostion , t);
             t += Time.deltaTime*fireBallSpeed;
             rotateFireBall();
-        }
-        else{
+             //  ChargeSound.Stop();
+
+            }
+            else
+            {
 
             // fireBall.localScale += Vector3.one * scaleSpeed * Time.deltaTime; // scale the ball over the time
             rotateFireBall();
-         
-            if(CharggingBall){ // here either will teleport or not
+
+
+            if (CharggingBall){ // here either will teleport or not
                 EnterOnce=true;
                 fireBall.localScale = fireBallSize ; // because it will be already charging 
                 Debug.Log("start charging the ball");
@@ -337,10 +345,12 @@ public class bossScript : MonoBehaviour
                     }
                 }
                 StartCoroutine("ChargeBall");
+                    ChargeSound.Play();
+
+                }
+
+
             }
-            
-            
-        }
 
         if (fireBall.transform.position == currentPostion) { // reset it again
             // Debug.Log("Lerp has reached the destination");
@@ -348,11 +358,11 @@ public class bossScript : MonoBehaviour
             // FireBallHitSound.Play();
             fireBall.localScale = fireBallSize ;
             FinishedAllAni=true;
-          
+
             // await Task.Delay(2000);
             // explosionAnimation.Play();  // upon the hit the play the animation
-          
-        }
+
+            }
 
         if(!HasFall){ // 
             // Debug.Log("back to normal");
@@ -452,7 +462,8 @@ public class bossScript : MonoBehaviour
             if(!DieOnce){
             animator.StopPlayback();
             animator.Play("death");
-            DieOnce=true;
+            DeathSound.Play();
+            DieOnce =true;
             StopCoroutine("HasFallTime");
                 StartCoroutine(Next());
         }
@@ -494,17 +505,19 @@ public class bossScript : MonoBehaviour
             currentPostion = target.transform.position;
             animator.StopPlayback();
             animator.Play("throw");
-            // Debug.Log("after 4 second");
+        ChargeSound.Stop();
+
+        // Debug.Log("after 4 second");
         // }
         // else{ // this means just make the ball hit the boss
         //     Debug.Log("hit the head");
 
         // }
-      
+
         // animator.SetBool("isCharging2", false);
         // animator.SetTrigger("throughBall") ;
-        
-      
+
+
     }
     public void  floatAnimation(){
         float elapsedTime = Time.time - startTime;
@@ -591,13 +604,15 @@ public class bossScript : MonoBehaviour
 
 
      IEnumerator FallingOnHeadBall()  {
+        ChargeSound.Stop();
         yield return new WaitForSeconds(1.0f);
        isFallOnHead=false ;
        WaitingHasFall=true ;
+
     }
 
 
-      Vector3 RandomNavmeshLocation2(float radius) { // any random place
+    Vector3 RandomNavmeshLocation2(float radius) { // any random place
         // Generate a random point within the given radius
         Vector3 randomPoint = Random.insideUnitSphere * radius;
 
@@ -681,6 +696,7 @@ public class bossScript : MonoBehaviour
         } while (Vector3.Distance(newPosition, target.position) < fartherThanAgentBy);
         navMeshAgent.Warp(newPosition);
         lastPosition = newPosition;
+        TpSound.Play();
     }
 
 
