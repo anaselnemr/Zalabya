@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class Pause : MonoBehaviour
 {
-
+	public GameObject pnlGameOver;
 	public GameObject PausePanel;
 	public GameObject player;
 	public static bool ispaused = false;
@@ -38,8 +38,10 @@ public class Pause : MonoBehaviour
 			player.SetActive(false);
 		}
 
+
+		bool gameOverActive = pnlGameOver.activeSelf;
 		/*A.volume = MainSound.value;*/
-		if (Input.GetKeyDown(KeyCode.Escape) && !ispaused)
+		if (Input.GetKeyDown(KeyCode.Escape) && !ispaused && !gameOverActive)
 		{
 			ispaused = true;
 			PausePanel.SetActive(true);

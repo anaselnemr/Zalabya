@@ -28,7 +28,7 @@ public class Moblinagent : MonoBehaviour
 	//States
 	public float sightRange, attackRange;
 	private bool playerInSightRange, playerInAttackRange;
-	private static bool chased = false;
+	public static bool chased = false;
 	private bool once = true;
 	private int r;
 	public int slowdamage;

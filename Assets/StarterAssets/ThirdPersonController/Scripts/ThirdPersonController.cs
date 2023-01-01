@@ -23,6 +23,7 @@ namespace StarterAssets
 #endif
 	public class ThirdPersonController : MonoBehaviour
 	{
+		public GameObject pnlGameover;
 		public GameObject gliderObj;
 		public GameObject arrowObj;
 		public Transform arrowPoint;
@@ -231,7 +232,14 @@ namespace StarterAssets
 		{
 			_animator.PlayInFixedTime("dying");
 			yield return new WaitForSeconds(2);
+
+			gameObject.SetActive(false);
 			Destroy(gameObject);
+			PlayerClimbing.isClimbing = false;
+			Abilities.activeStasis = false;
+			Bokoblinagent.chased = false;
+			Moblinagent.chased = false;
+			pnlGameover.SetActive(true);
 		}
 
 		public void OnTriggerStay(Collider c)
