@@ -37,9 +37,11 @@ public class Moblinagent : MonoBehaviour
 
 	private void Start()
 	{
-		player = GameObject.Find("PlayerArmature").transform;
+		// player = GameObject.Find("PlayerArmature").transform;
 		agent = GetComponent<NavMeshAgent>();
-		a = this.GetComponent<Animator>();
+		a = GetComponent<Animator>();
+		Debug.Log("WHAT");
+		Debug.Log(a);
 	}
 
 	private void Update()
@@ -146,6 +148,7 @@ public class Moblinagent : MonoBehaviour
 	}
 	bool isPlaying(string stateName)
 	{
+
 		if (a.GetCurrentAnimatorStateInfo(0).IsName(stateName) && a.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f)
 			return true;
 		else

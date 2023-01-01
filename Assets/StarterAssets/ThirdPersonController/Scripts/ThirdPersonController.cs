@@ -136,7 +136,7 @@ namespace StarterAssets
 		private bool gliding = false;
 		private float Pos1 = 0f;
 		private bool mara = true;
-		private static int health = 24;
+		private int health = 24;
 		public Sprite fullhealth;
 		public Sprite emptyhealth;
 		public Image[] hearts;

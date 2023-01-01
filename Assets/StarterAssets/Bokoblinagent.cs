@@ -37,7 +37,7 @@ public class Bokoblinagent : MonoBehaviour
 
 	private void Start()
 	{
-		player = GameObject.Find("PlayerArmature").transform;
+		// player = GameObject.Find("PlayerArmature").transform;
 		agent = GetComponent<NavMeshAgent>();
 		a = this.GetComponent<Animator>();
 	}
