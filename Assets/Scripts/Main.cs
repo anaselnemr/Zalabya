@@ -40,19 +40,23 @@ public class Main : MonoBehaviour
 	}
 	public void Level1()
 	{
+		Pause.ispaused = false;
 		SceneManager.LoadScene(1);
 	}
 	public void Level2()
 	{
-		SceneManager.LoadScene(2);
+		Pause.ispaused = false;
+        SceneManager.LoadScene(2);
 	}
 	public void Level3()
 	{
-		SceneManager.LoadScene(3);
+		Pause.ispaused = false;
+        SceneManager.LoadScene(3);
 	}
 	public void Level4()
 	{
-		SceneManager.LoadScene(4);
+		Pause.ispaused = false;
+        SceneManager.LoadScene(4);
 	}
 	public void options()
 	{

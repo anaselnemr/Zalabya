@@ -32,25 +32,32 @@ public class Pause : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
-		if (won)
+		bool gameOverActive = pnlGameOver.activeSelf;
+        if (won)
 		{
 			Won();
 		}
-		if (!ispaused && !won)
+		if (!ispaused && !won  && !gameOverActive)
 		{
-			if(player != null)
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+            if (player != null)
 			player.SetActive(true);
 			Time.timeScale = 1f;
 		}
 		else
 		{
-            
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
             Time.timeScale = 0f;
             player.SetActive(false);
 		}
+		if(gameOverActive)
+		{
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
 
-
-		bool gameOverActive = pnlGameOver.activeSelf;
 		if(WinPanel != null)
 			WinOverActive = WinPanel.activeSelf;
 		else
@@ -65,13 +72,17 @@ public class Pause : MonoBehaviour
 			Time.timeScale = 0f; 
 			ispaused = true;
 			PausePanel.SetActive(true);
-			return;
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+            return;
 		}
 		if (Input.GetKeyDown(KeyCode.Escape) && ispaused)
 		{	Time.timeScale = 1f;
                 ispaused = false;
 			PausePanel.SetActive(false);
-		}
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
 		/*        PlayerPrefs.SetFloat("MainSound", MainSound.value);
 				PlayerPrefs.SetFloat("EffectsSound", EffectsSound.value);*/
 	}
@@ -94,8 +105,11 @@ public class Pause : MonoBehaviour
 		Time.timeScale = 1f;
         if (player != null)
 		player.SetActive(true);
-		SceneManager.LoadScene(0);
-		ispaused = false;
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+	/*        ispaused = false;
+	*/        SceneManager.LoadScene(0);
+
 	}
 	public void Restart()
     {
