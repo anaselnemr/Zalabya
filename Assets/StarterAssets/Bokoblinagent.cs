@@ -131,13 +131,13 @@ public class Bokoblinagent : MonoBehaviour
 	{
 
 
-		if (c.gameObject.CompareTag("Hero") && isPlaying("Fast attack") && once && a.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.6f)
+		if (c.gameObject.CompareTag("Hero") && isPlaying("Fast attack") && once)
 		{
 			once = false;
 			Debug.Log(c.gameObject.transform.parent.gameObject.transform.parent.name);
 			c.gameObject.transform.parent.gameObject.transform.parent.GetComponent<ThirdPersonController>().TakeDamage(fastdamage);
 		}
-		if (c.gameObject.CompareTag("Hero") && isPlaying("Slow attack") && once && a.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.6f)
+		if (c.gameObject.CompareTag("Hero") && isPlaying("Slow attack") && once)
 		{
 			once = false;
 			Debug.Log(c.gameObject.transform.parent.gameObject.transform.parent.name);

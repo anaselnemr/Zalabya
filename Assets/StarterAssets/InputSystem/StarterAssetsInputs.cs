@@ -27,55 +27,46 @@ namespace StarterAssets
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
 		public void OnMove(InputValue value)
 		{
-			if (!PlayerClimbing.isClimbing)
-				MoveInput(value.Get<Vector2>());
+			MoveInput(value.Get<Vector2>());
 		}
 
 		public void OnLook(InputValue value)
 		{
 			if (cursorInputForLook)
 			{
-				if (!PlayerClimbing.isClimbing)
-					LookInput(value.Get<Vector2>());
+				LookInput(value.Get<Vector2>());
 			}
 		}
 
 		public void OnJump(InputValue value)
 		{
-			if (!PlayerClimbing.isClimbing)
-				JumpInput(value.isPressed);
+			JumpInput(value.isPressed);
 		}
 
 		public void OnSprint(InputValue value)
 		{
-			if (!PlayerClimbing.isClimbing)
-
-				SprintInput(value.isPressed);
+			SprintInput(value.isPressed);
 		}
 #endif
 
 		public void MoveInput(Vector2 newMoveDirection)
 		{
-			if (!PlayerClimbing.isClimbing)
-				move = newMoveDirection;
+			move = newMoveDirection;
 		}
 
 		public void LookInput(Vector2 newLookDirection)
 		{
-			if (!PlayerClimbing.isClimbing)
-				look = newLookDirection;
+			look = newLookDirection;
 		}
 
 		public void JumpInput(bool newJumpState)
 		{
-			if (!PlayerClimbing.isClimbing)
-				jump = newJumpState;
+			jump = newJumpState;
 		}
 
 		public void SprintInput(bool newSprintState)
 		{
-			if (!PlayerClimbing.isClimbing)
-				sprint = newSprintState;
+			sprint = newSprintState;
 		}
 
 		private void OnApplicationFocus(bool hasFocus)
@@ -88,24 +79,24 @@ namespace StarterAssets
 			Cursor.lockState = newState ? CursorLockMode.Locked : CursorLockMode.None;
 		}
 
-		/*		public void OnAiming(InputValue value)
-				{
-					isAiming = value.isPressed;
-				}
+/*		public void OnAiming(InputValue value)
+		{
+			isAiming = value.isPressed;
+		}
 
-				public void OnAimShoot(InputValue value)
-				{
-					isAimShoot = value.isPressed;
-				}
+		public void OnAimShoot(InputValue value)
+		{
+			isAimShoot = value.isPressed;
+		}
 
-				public void OnSwordSlash(InputValue value)
-				{
-					isSwordSlash = value.isPressed;
-				}
-				public void OnShieldBlock(InputValue value)
-				{
-					isShieldBlock = value.isPressed;
-				}*/
+		public void OnSwordSlash(InputValue value)
+		{
+			isSwordSlash = value.isPressed;
+		}
+		public void OnShieldBlock(InputValue value)
+		{
+			isShieldBlock = value.isPressed;
+		}*/
 
 	}
 

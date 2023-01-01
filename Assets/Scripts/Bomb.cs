@@ -7,7 +7,7 @@ public class Bomb : MonoBehaviour
 
 
 	public float explosionRadius = 10f;
-	public float explosionForce = 0.1f;
+	public float explosionForce = 1000f;
 
 	private bool isExploded = false;
 

@@ -4,6 +4,7 @@ using UnityEngine;
 using DG.Tweening;
 using Cinemachine;
 using UnityEngine.UI;
+using UnityEngine.Playables;
 
 /*  todo:
 
@@ -165,6 +166,12 @@ public class Stasis : MonoBehaviour
 
 		Renderer obj_rend = obj.GetComponent<Renderer>();
 		Rigidbody rb = obj.GetComponent<Rigidbody>();
+		PlayableDirector director;
+		director = obj.GetComponent<PlayableDirector>(); 
+		director.playableGraph.GetRootPlayable(0).SetSpeed(0);
+
+
+		//Animator test = obj.GetComponent<AnimationClip>();
 
 		if (obj_rend == null || rb == null)
 		{
@@ -187,7 +194,8 @@ public class Stasis : MonoBehaviour
 		yield return new WaitForSeconds(stasisSeconds);
 		// ---
 
-		rb.isKinematic = false;
+		director.playableGraph.GetRootPlayable(0).SetSpeed(1);
+		rb.isKinematic = true;
 		tmp_material_list.RemoveAt(tmp_material_list.Count - 1); // pop from back
 		obj_rend.materials = tmp_material_list.ToArray();
 

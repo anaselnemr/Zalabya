@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Arrow : MonoBehaviour
@@ -15,40 +14,17 @@ public class Arrow : MonoBehaviour
 		// if the arrow hits a collider
 		Destroy(this);
 
-        //   if hit enemy
-        if (c.gameObject.CompareTag("Bokoblin"))
-        {
-            MonoBehaviour w = c.gameObject.GetComponent<MonoBehaviour>();
-            string type = w.GetType().Name;
-            if (type == "Bokoblinagent")
-            {
-                c.gameObject.GetComponent<Bokoblinagent>().TakeDamage(5);
-            }
-            else
-            {
-                c.gameObject.GetComponent<Moblinagent>().TakeDamage(5);
-
-            }
-        }
-        if (c.gameObject.CompareTag("Moblin") )
-        {
-            MonoBehaviour w = c.gameObject.GetComponent<MonoBehaviour>();
-            string type = w.GetType().Name;
-            if (type == "Bokoblinagent")
-            {
-                c.gameObject.GetComponent<Bokoblinagent>().TakeDamage(5);
-            }
-            else
-            {
-                c.gameObject.GetComponent<Moblinagent>().TakeDamage(5);
-
-            }
-        }
-        if (c.gameObject.CompareTag("Boss1"))
-        {
-            c.gameObject.GetComponent<bossScript>().TakeDamage(5);
-        }
+		//   if hit enemy
+		if (c.gameObject.CompareTag("Bokoblin"))
+		{
+			c.gameObject.GetComponent<Bokoblinagent>().TakeDamage(5);
+		}
+		if (c.gameObject.CompareTag("Moblin"))
+		{
+			c.gameObject.GetComponent<Moblinagent>().TakeDamage(5);
+		}
 
 
-    }
+
+	}
 }

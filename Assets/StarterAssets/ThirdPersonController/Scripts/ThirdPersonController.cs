@@ -35,7 +35,7 @@ namespace StarterAssets
 		public GameObject Shield;
 		/*		public GameObject Bow;
 		*/
-		private Boolean combatBow = false;
+		private Boolean range = false;
 
 		[Header("Player")]
 		[Tooltip("Move speed of the character in m/s")]
@@ -141,11 +141,6 @@ namespace StarterAssets
 		public Sprite emptyhealth;
 		public Image[] hearts;
 		public GameObject t;
-
-		private float shieldBlockTime = 10f;
-		private bool shieldCanBlock = true;
-
-
 		private bool IsCurrentDeviceMouse
 		{
 			get
@@ -201,20 +196,13 @@ namespace StarterAssets
 			else
 				return false;
 		}
-
 		public void TakeDamage(int damage)
 		{
-			if (_animator.GetBool("ShieldBlock"))
-			{
-				return;
-			}
-
 			Debug.Log("I AM DYINGGGG");
 			health -= damage;
 
 			if (health <= 0) DestroyEnemy();
 		}
-
 		public void HealthUpdate()
 		{
 			for (int i = 0; i < hearts.Length; i++)
@@ -264,14 +252,6 @@ namespace StarterAssets
 
 				}
 			}
-			if (c.gameObject.CompareTag("Boss1") && isPlaying("Sword Slash") && once)
-			{
-				once = false;
-
-				c.gameObject.GetComponent<bossScript>().TakeDamage(10);
-
-			}
-
 
 		}
 		public void OnTriggerEnter(Collider c)
@@ -320,15 +300,12 @@ namespace StarterAssets
 			_hasAnimator = TryGetComponent(out _animator);
 			if (!isPlaying("Sword Slash"))
 				once = true;
-
-			// if (!PlayerClimbing.isClimbing)
 			JumpAndGravity();
-
 			HealthUpdate();
 			GroundedCheck();
 			FallDamageCheck();
 			Move();
-
+			AimShoot();
 			// Gliding animation and action with setting the active weapons
 
 			if (Input.GetKey(KeyCode.Space) && _verticalVelocity < 0)
@@ -350,7 +327,7 @@ namespace StarterAssets
 				Gravity = -15.0f;
 				gliderObj.SetActive(false);
 				_animator.SetBool("Hanging", false);
-				if (combatBow == true)
+				if (range == true)
 				{
 					// bow and arrow set to active true
 					Swordhand.SetActive(false);
@@ -358,7 +335,7 @@ namespace StarterAssets
 					Sword.SetActive(true);
 					Shield.SetActive(true);
 					Bowhand.SetActive(true);
-					combatBow = true;
+					range = true;
 
 				}
 				else
@@ -369,7 +346,7 @@ namespace StarterAssets
 					Sword.SetActive(false);
 					Shield.SetActive(false);
 					Bowhand.SetActive(false);
-					combatBow = false;
+					range = false;
 				}
 			}
 
@@ -380,7 +357,7 @@ namespace StarterAssets
 			}
 			if (Input.GetKeyDown(KeyCode.Tab))
 			{
-				combatBow = !combatBow;
+				range = !range;
 			}
 
 
@@ -390,21 +367,15 @@ namespace StarterAssets
 			//or sword block (left click)
 			// return animation after each trial
 
-			if (_animator.GetBool("ShieldBlock") == false)
-			{//reset block time
-				shieldBlockTime = 10f;
-			}
-
-
 			_animator.SetBool("Aiming", false);
 			_animator.SetBool("AimShoot", false);
 			_animator.SetBool("ShieldBlock", false);
 			playerFollowCamera.SetActive(true);
 			playerAimCamera.SetActive(false);
 
-			if (Input.GetMouseButton(1) && Grounded) // right click
+			if (Input.GetMouseButton(1))
 			{
-				if (combatBow)
+				if (range)
 				{
 					_animator.SetBool("Aiming", true);
 					playerFollowCamera.SetActive(false);
@@ -413,33 +384,19 @@ namespace StarterAssets
 
 				else
 				{
-					if (shieldCanBlock && shieldBlockTime > 0)
-					{
-						shieldBlockTime -= Time.deltaTime;
-						_animator.SetBool("ShieldBlock", true);
-					}
-					if (shieldCanBlock && shieldBlockTime <= 0)
-					{
-						StartCoroutine(WaitAndEnableShield());
-					}
-
-					if (!shieldCanBlock)
-					{
-						// TODO: SWORD BLOCK
-						// _animator.SetTrigger("SwordBlock");
-					}
+					_animator.SetBool("ShieldBlock", true);
 				}
 			}
 
-			if (Input.GetMouseButton(0) && Grounded) // left click
+			if (Input.GetMouseButton(0))
 			{
 
-				if (combatBow && _animator.GetBool(("Aiming")))
+				if (range && _animator.GetBool(("Aiming")))
 				{
 					_animator.SetBool("AimShoot", true);
 				}
 
-				if (!combatBow && !_input.sprint)
+				if (!range)
 				{
 					_animator.SetTrigger("SwordSlash");
 				}
@@ -464,7 +421,7 @@ namespace StarterAssets
 			if (Grounded && !mara)
 			{
 				mara = true;
-				// Debug.Log("Fall : " + (Pos1 - transform.position.y));
+				Debug.Log("Fall : " + (Pos1 - transform.position.y));
 				if (Pos1 - transform.position.y > 10)
 				{
 					TakeDamage(24);
@@ -472,13 +429,49 @@ namespace StarterAssets
 			}
 
 		}
-
-
-		IEnumerator WaitAndEnableShield()
+		private void AimShoot()
 		{
-			shieldCanBlock = false;
-			yield return new WaitForSeconds(5f);
-			shieldCanBlock = true;
+			// TODO: switch between (Bow) and (Sword - shield)
+
+			if (_input.isAiming && Grounded && !_input.sprint && range)
+			{
+				_animator.SetBool("Aiming", _input.isAiming);
+				_animator.SetBool("AimShoot", _input.isAimShoot);
+				playerFollowCamera.SetActive(false);
+				playerAimCamera.SetActive(true);
+			}
+			else
+			if (range)
+			{
+				_animator.SetBool("Aiming", false);
+				_animator.SetBool("AimShoot", false);
+				playerFollowCamera.SetActive(true);
+				playerAimCamera.SetActive(false);
+
+			}
+
+
+
+			// TODO: WIP - sword slash and shield block
+			if (!_input.sprint && Grounded && !range)
+			{
+				if (_input.isSwordSlash)
+				{
+					_animator.SetTrigger("SwordSlash");
+				}
+
+				if (_input.isShieldBlock)
+				{
+					// TODO: Player can't move while blocking with shield
+					_animator.SetBool("ShieldBlock", true);
+				}
+				else
+				{
+					_animator.SetBool("ShieldBlock", false);
+				}
+
+			}
+
 		}
 
 		public void ShootArrow()
@@ -598,9 +591,8 @@ namespace StarterAssets
 			Vector3 targetDirection = Quaternion.Euler(0.0f, _targetRotation, 0.0f) * Vector3.forward;
 
 			// move the player
-			if (!PlayerClimbing.isClimbing)
-				_controller.Move(targetDirection.normalized * (_speed * Time.deltaTime) +
-								 new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
+			_controller.Move(targetDirection.normalized * (_speed * Time.deltaTime) +
+							 new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
 
 			// update animator if using character
 			if (_hasAnimator)
