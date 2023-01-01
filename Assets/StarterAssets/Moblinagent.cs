@@ -9,194 +9,179 @@ using UnityEngine.SocialPlatforms.Impl;
 */
 public class Moblinagent : MonoBehaviour
 {
-    private NavMeshAgent agent;
-    public Transform player;
-    public LayerMask whatIsGround, whatIsPlayer;
-    public float health;
-    private Animator a;
-    //Patroling
-    private Vector3 walkPoint;
-    bool walkPointSet;
-    public float walkPointRange;
-    public Slider Healthbar;
+	private NavMeshAgent agent;
+	public Transform player;
+	public LayerMask whatIsGround, whatIsPlayer;
+	public float health;
+	private Animator a;
+	//Patroling
+	private Vector3 walkPoint;
+	bool walkPointSet;
+	public float walkPointRange;
+	public Slider Healthbar;
 
-    //Attacking
-    public float timeBetweenAttacks;
-    bool alreadyAttacked;
-    public GameObject projectile;
+	//Attacking
+	public float timeBetweenAttacks;
+	bool alreadyAttacked;
+	public GameObject projectile;
 
-    //States
-    public float sightRange, attackRange;
-    private bool playerInSightRange, playerInAttackRange;
-    private static bool chased = false;
-    private bool once = true;
-    private int r;
-    public int slowdamage;
-    public int fastdamage;
-    private bool notagain = true;
+	//States
+	public float sightRange, attackRange;
+	private bool playerInSightRange, playerInAttackRange;
+	private static bool chased = false;
+	private bool once = true;
+	private int r;
+	public int slowdamage;
+	public int fastdamage;
+	private bool notagain = true;
 
-    private void Start()
-    {
-        player = GameObject.Find("PlayerArmature").transform;
-        agent = GetComponent<NavMeshAgent>();
-        a = this.GetComponent<Animator>();
-    }
+	private void Start()
+	{
+		player = GameObject.Find("PlayerArmature").transform;
+		agent = GetComponent<NavMeshAgent>();
+		a = this.GetComponent<Animator>();
+	}
 
-    private void Update()
-    {
-        Healthbar.value = health;
-        //Check for sight and attack range
-        if(!isPlaying("Fast attack") && !isPlaying("Slow attack"))
-            once = true;
-        playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
-        playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
-        if (!playerInSightRange && !playerInAttackRange && !chased && !isPlaying("Idle")) Patroling();
-        if (playerInAttackRange && playerInSightRange) AttackPlayer();
-        if ((playerInSightRange && !playerInAttackRange) || chased) ChasePlayer();
+	private void Update()
+	{
+		Healthbar.value = health;
+		//Check for sight and attack range
+		if (!isPlaying("Fast attack") && !isPlaying("Slow attack"))
+			once = true;
+		playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
+		playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
+		if (!playerInSightRange && !playerInAttackRange && !chased && !isPlaying("Idle")) Patroling();
+		if (playerInAttackRange && playerInSightRange) AttackPlayer();
+		if ((playerInSightRange && !playerInAttackRange) || chased) ChasePlayer();
 
-    }
+	}
 
-    private void Patroling()
-    {
-/*        Debug.Log("Patrol");
-*/
-        if (!walkPointSet) SearchWalkPoint();
+	private void Patroling()
+	{
+		/*        Debug.Log("Patrol");
+		*/
+		if (!walkPointSet) SearchWalkPoint();
 
-        if (walkPointSet)
-        {
-            agent.SetDestination(walkPoint);
-            transform.LookAt(walkPoint);
-        }
+		if (walkPointSet)
+		{
+			agent.SetDestination(walkPoint);
+			transform.LookAt(walkPoint);
+		}
 
-        Vector3 distanceToWalkPoint = transform.position - walkPoint;
-/*        Debug.Log(distanceToWalkPoint);
-*/
-        //Walkpoint reached
-        if (distanceToWalkPoint.magnitude < 5f)
-            walkPointSet = false;
-    }
-    private void SearchWalkPoint()
-    {
-/*        Debug.Log("SearchWalkPoint");
-*/
-        //Calculate random point in range
-        float randomZ = Random.Range(-walkPointRange, walkPointRange);
-        float randomX = Random.Range(-walkPointRange, walkPointRange);
+		Vector3 distanceToWalkPoint = transform.position - walkPoint;
+		/*        Debug.Log(distanceToWalkPoint);
+		*/
+		//Walkpoint reached
+		if (distanceToWalkPoint.magnitude < 5f)
+			walkPointSet = false;
+	}
+	private void SearchWalkPoint()
+	{
+		/*        Debug.Log("SearchWalkPoint");
+		*/
+		//Calculate random point in range
+		float randomZ = Random.Range(-walkPointRange, walkPointRange);
+		float randomX = Random.Range(-walkPointRange, walkPointRange);
 
-        walkPoint = new Vector3(transform.position.x + randomX, transform.position.y, transform.position.z + randomZ);
+		walkPoint = new Vector3(transform.position.x + randomX, transform.position.y, transform.position.z + randomZ);
 
-        if (Physics.Raycast(walkPoint, -transform.up, 2f, whatIsGround))
-            walkPointSet = true;
-    }
+		if (Physics.Raycast(walkPoint, -transform.up, 2f, whatIsGround))
+			walkPointSet = true;
+	}
 
-    private void ChasePlayer()
-    {
-        Debug.Log("Chase Player");
-        if (gameObject.tag == "Moblin " && notagain)
-        {
-            notagain = false;
-            a.Play("Run");
-        }
-        chased = true;
-        agent.SetDestination(player.position);
-        transform.LookAt(player);
+	private void ChasePlayer()
+	{
+		Debug.Log("Chase Player");
+		if (gameObject.tag == "Moblin " && notagain)
+		{
+			notagain = false;
+			a.Play("Run");
+		}
+		chased = true;
+		agent.SetDestination(player.position);
+		transform.LookAt(player);
 
-    }
+	}
 
-    private void AttackPlayer()
-    {
-        Debug.Log("Attack Player");
-        //Make sure enemy doesn't move
-        agent.SetDestination(transform.position);
-        transform.LookAt(player);
+	private void AttackPlayer()
+	{
+		Debug.Log("Attack Player");
+		//Make sure enemy doesn't move
+		agent.SetDestination(transform.position);
+		transform.LookAt(player);
 
-        if (!alreadyAttacked && health>0)
-        {
-            int r = Random.Range(0, 2);
-            if(r == 0)
-            a.PlayInFixedTime("Fast attack");
-            else
-            a.PlayInFixedTime("Slow attack");
+		if (!alreadyAttacked && health > 0)
+		{
+			int r = Random.Range(0, 2);
+			if (r == 0)
+				a.PlayInFixedTime("Fast attack");
+			else
+				a.PlayInFixedTime("Slow attack");
 
-            alreadyAttacked = true; 
-            Invoke(nameof(ResetAttack), timeBetweenAttacks);
-        }
-    }
-    private void ResetAttack()
-    {
-        alreadyAttacked = false;
-    }
-    public void OnTriggerStay(Collider c)
-    {
+			alreadyAttacked = true;
+			Invoke(nameof(ResetAttack), timeBetweenAttacks);
+		}
+	}
+	private void ResetAttack()
+	{
+		alreadyAttacked = false;
+	}
+	public void OnTriggerStay(Collider c)
+	{
 
 
-        if (c.gameObject.CompareTag("Hero") && isPlaying("Fast attack") && once)
-        {
-            once = false;
-            Debug.Log(c.gameObject.transform.parent.gameObject.transform.parent.name);
-            c.gameObject.transform.parent.gameObject.transform.parent.GetComponent<ThirdPersonController>().TakeDamage(fastdamage);
-        }
-        if (c.gameObject.CompareTag("Hero") && isPlaying("Slow attack") && once)
-        {
-            once = false;
-            Debug.Log(c.gameObject.transform.parent.gameObject.transform.parent.name);
-            c.gameObject.transform.parent.gameObject.transform.parent.GetComponent<ThirdPersonController>().TakeDamage(slowdamage);
-        }
+		if (c.gameObject.CompareTag("Hero") && isPlaying("Fast attack") && once)
+		{
+			once = false;
+			Debug.Log(c.gameObject.transform.parent.gameObject.transform.parent.name);
+			c.gameObject.transform.parent.gameObject.transform.parent.GetComponent<ThirdPersonController>().TakeDamage(fastdamage);
+		}
+		if (c.gameObject.CompareTag("Hero") && isPlaying("Slow attack") && once)
+		{
+			once = false;
+			Debug.Log(c.gameObject.transform.parent.gameObject.transform.parent.name);
+			c.gameObject.transform.parent.gameObject.transform.parent.GetComponent<ThirdPersonController>().TakeDamage(slowdamage);
+		}
 
-    }
-    bool isPlaying(string stateName)
-    {
-        if (a.GetCurrentAnimatorStateInfo(0).IsName(stateName) && a.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f)
-            return true;
-        else
-            return false;
-    }
-    public void TakeDamage(int damage)
-    {
-<<<<<<< HEAD
-       health -= damage;
+	}
+	bool isPlaying(string stateName)
+	{
+		if (a.GetCurrentAnimatorStateInfo(0).IsName(stateName) && a.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f)
+			return true;
+		else
+			return false;
+	}
+	public void TakeDamage(int damage)
+	{
+		health -= damage;
+		int i = Random.Range(0, 2);
+		if (health <= 0)
+		{
 
-        if (health <= 0) {
+			a.PlayInFixedTime("Die");
+			StartCoroutine(DestroyEnemy());
+		}
+		else
+		{
+			if (i == 0)
+			{
+				a.PlayInFixedTime("damage");
+				Debug.Log("HEREAFDAFASDFASDF");
+			}
+			else
+			{
+				Debug.Log("NOT ASFBASDHFADSFSADs");
 
-            a.PlayInFixedTime("Die");
-            StartCoroutine(DestroyEnemy()); }
-        else
-        {
-
-            a.PlayInFixedTime("Hit");
-        }
-    ChasePlayer();
-=======
-        health -= damage;
-        int i = Random.Range(0, 2);
-        if (health <= 0)
-        {
-
-            a.PlayInFixedTime("Die");
-            StartCoroutine(DestroyEnemy());
-        }
-        else
-        {
-            if (i == 0)
-            {
-                a.PlayInFixedTime("damage");
-                Debug.Log("HEREAFDAFASDFASDF");
-            }
-            else
-            {
-                Debug.Log("NOT ASFBASDHFADSFSADs");
-
-                a.PlayInFixedTime("Hit");
-            }
-        }
-        ChasePlayer();
->>>>>>> mine/test
-    }
-    IEnumerator DestroyEnemy()
-    {
-        yield return new WaitForSeconds(2);
-        Destroy(gameObject);
-    }
+				a.PlayInFixedTime("Hit");
+			}
+		}
+		ChasePlayer();
+	}
+	IEnumerator DestroyEnemy()
+	{
+		yield return new WaitForSeconds(2);
+		Destroy(gameObject);
+	}
 
 
 }

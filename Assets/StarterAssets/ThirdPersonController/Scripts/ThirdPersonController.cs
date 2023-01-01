@@ -144,16 +144,10 @@ namespace StarterAssets
 
 		private float shieldBlockTime = 10f;
 		private bool shieldCanBlock = true;
-<<<<<<< HEAD
+		public TMP_Text Text;
 
 
 		private bool IsCurrentDeviceMouse
-=======
-        public TMP_Text Text;
-
-
-        private bool IsCurrentDeviceMouse
->>>>>>> mine/test
 		{
 			get
 			{
@@ -215,19 +209,11 @@ namespace StarterAssets
 			{
 				return;
 			}
-<<<<<<< HEAD
-
+			_animator.PlayInFixedTime("hit");
 			Debug.Log("I AM DYINGGGG");
 			health -= damage;
 
-			if (health <= 0) DestroyEnemy();
-=======
-            _animator.PlayInFixedTime("hit");
-            Debug.Log("I AM DYINGGGG");
-			health -= damage;
-
 			if (health <= 0) StartCoroutine(DestroyEnemy());
->>>>>>> mine/test
 		}
 
 		public void HealthUpdate()
@@ -241,23 +227,14 @@ namespace StarterAssets
 
 			}
 		}
-<<<<<<< HEAD
-		private void DestroyEnemy()
+		IEnumerator DestroyEnemy()
 		{
+			_animator.PlayInFixedTime("dying");
+			yield return new WaitForSeconds(2);
 			Destroy(gameObject);
 		}
 
 		public void OnTriggerStay(Collider c)
-=======
-        IEnumerator DestroyEnemy()
-        {
-            _animator.PlayInFixedTime("dying");
-            yield return new WaitForSeconds(2);
-            Destroy(gameObject);
-        }
-
-        public void OnTriggerStay(Collider c)
->>>>>>> mine/test
 		{
 
 			if (c.gameObject.CompareTag("Bokoblin") && isPlaying("Sword Slash") && once)
@@ -342,22 +319,17 @@ namespace StarterAssets
 		}
 
 		private void Update()
-<<<<<<< HEAD
 		{
-			_hasAnimator = TryGetComponent(out _animator);
-=======
-        {
-            if (combatBow)
-            {
-                Text.text = "Ranged Attack";
-            }
-            else
-            {
-                Text.text = "Melee Attack";
+			if (combatBow)
+			{
+				Text.text = "Ranged Attack";
+			}
+			else
+			{
+				Text.text = "Melee Attack";
 
-            }
-            _hasAnimator = TryGetComponent(out _animator);
->>>>>>> mine/test
+			}
+			_hasAnimator = TryGetComponent(out _animator);
 			if (!isPlaying("Sword Slash"))
 				once = true;
 
@@ -370,23 +342,10 @@ namespace StarterAssets
 			Move();
 
 			// Gliding animation and action with setting the active weapons
-<<<<<<< HEAD
 
 			if (Input.GetKey(KeyCode.Space) && _verticalVelocity < 0)
 			{
 				Gravity = -1.0f;
-=======
-			if (Input.GetKey(KeyCode.Space) && _verticalVelocity < 0)
-			{
-
-
-
-			}
-			if (Input.GetKey(KeyCode.Space) && _verticalVelocity < 0)
-			{
-
-                Gravity = -1.0f;
->>>>>>> mine/test
 				gliderObj.SetActive(true);
 				_animator.SetBool("Hanging", true);
 				Swordhand.SetActive(false);
@@ -538,13 +497,8 @@ namespace StarterAssets
 		{
 			//   Event Trigger by animation
 			Debug.Log("ShootArrow");
-<<<<<<< HEAD
 			GameObject arrow = Instantiate(arrowObj, arrowPoint.position, transform.rotation);
-			arrow.GetComponent<Rigidbody>().AddForce(transform.forward * 25f, ForceMode.Impulse);
-=======
-			GameObject arrow = Instantiate(arrowObj, arrowPoint.position,transform.rotation);
 			arrow.GetComponent<Rigidbody>().AddForce(Camera.main.transform.forward * 25f, ForceMode.Impulse);
->>>>>>> mine/test
 		}
 
 

@@ -1,9 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-<<<<<<< HEAD
-=======
 using TMPro;
->>>>>>> mine/test
 using UnityEngine;
 
 public class Abilities : MonoBehaviour
@@ -19,16 +16,14 @@ public class Abilities : MonoBehaviour
 	public GameObject chestpoint;
 	// 
 	public static bool activeStasis = false;
-<<<<<<< HEAD
-
-
-=======
 	public TMP_Text Text;
+
+	public LayerMask whatisplayerLayer;
+
 	private void Start()
 	{
-        Text.text = "Bomb";
-    }
->>>>>>> mine/test
+		Text.text = "Bomb";
+	}
 	private void FixedUpdate()
 	{
 		if (object_grabbed)
@@ -54,15 +49,6 @@ public class Abilities : MonoBehaviour
 	{
 		int prvSelectedAbility = selectedAbility;
 		if (Input.GetKeyDown(KeyCode.Alpha1))
-<<<<<<< HEAD
-			selectedAbility = 1;
-		if (Input.GetKeyDown(KeyCode.Alpha3))
-			selectedAbility = 3;
-		if (Input.GetKeyDown(KeyCode.Alpha4))
-			selectedAbility = 4;
-
-		if (prvSelectedAbility != selectedAbility)
-=======
 		{
 			selectedAbility = 1;
 			Text.text = "Bomb";
@@ -70,18 +56,17 @@ public class Abilities : MonoBehaviour
 		if (Input.GetKeyDown(KeyCode.Alpha3))
 		{
 			selectedAbility = 3;
-            Text.text = "Magnesis";
+			Text.text = "Magnesis";
 
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha4))
+		}
+		if (Input.GetKeyDown(KeyCode.Alpha4))
 		{
 			selectedAbility = 4;
-            Text.text = "Stasis";
+			Text.text = "Stasis";
 
-        }
+		}
 
-        if (prvSelectedAbility != selectedAbility)
->>>>>>> mine/test
+		if (prvSelectedAbility != selectedAbility)
 		{
 			Release();
 		}
@@ -93,7 +78,7 @@ public class Abilities : MonoBehaviour
 		{
 			RaycastHit hit;
 			// if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, 5f))
-			if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward * 100, out hit))
+			if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward * 100, out hit, 100f, ~whatisplayerLayer))
 			{
 				Debug.Log("Object is " + hit.collider.name);
 				object_grabbed = hit.collider.GetComponent<Rigidbody>();
@@ -106,10 +91,7 @@ public class Abilities : MonoBehaviour
 		{
 			if (currentBomb == null)
 			{
-<<<<<<< HEAD
-=======
 				this.GetComponent<Animator>().PlayInFixedTime("Throwing");
->>>>>>> mine/test
 				GameObject bomb = Instantiate(bombPrefab, bombPoint.position, bombPoint.rotation);
 				bomb.GetComponent<Rigidbody>().AddForce(bombPoint.forward * bombThrowForce + bombPoint.up, ForceMode.VelocityChange);
 				currentBomb = bomb;

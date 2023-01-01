@@ -48,8 +48,6 @@ AnimatorStateTransition:
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
-<<<<<<< HEAD
-=======
 --- !u!1102 &-5617315534378315403
 AnimatorState:
   serializedVersion: 6
@@ -99,7 +97,6 @@ AnimatorStateTransition:
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
->>>>>>> mine/test
 --- !u!1109 &-3928385280240202921
 AnimatorTransition:
   m_ObjectHideFlags: 1
@@ -232,8 +229,6 @@ AnimatorStateTransition:
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
-<<<<<<< HEAD
-=======
 --- !u!1101 &5686533152460289549
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
@@ -256,7 +251,6 @@ AnimatorStateTransition:
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
->>>>>>> mine/test
 --- !u!1102 &6204643923690094389
 AnimatorState:
   serializedVersion: 6
@@ -311,12 +305,9 @@ AnimatorStateMachine:
   - serializedVersion: 1
     m_State: {fileID: -3527938434175046839}
     m_Position: {x: 300, y: 400, z: 0}
-<<<<<<< HEAD
-=======
   - serializedVersion: 1
     m_State: {fileID: -5617315534378315403}
     m_Position: {x: -180, y: 340, z: 0}
->>>>>>> mine/test
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions:

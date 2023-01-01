@@ -6,117 +6,80 @@ using UnityEngine.SceneManagement;
 
 public class Main : MonoBehaviour
 {
-    public GameObject MainPanel;
-    public GameObject PlayPanel;
-    public GameObject OptionsPanel;
-<<<<<<< HEAD
-=======
-    public GameObject PausePanel;
-    public static bool paused = false;
->>>>>>> mine/test
-    /*public AudioSource A;*/
-    public Slider MainSound;
-    public Slider EffectsSound;
-    // Start is called before the first frame update
-    void Start()
-    {
-/*        if (PlayerPrefs.HasKey("volume"))
-        {
-            MusicVolume = (PlayerPrefs.GetFloat("volume"));
+	public GameObject MainPanel;
+	public GameObject PlayPanel;
+	public GameObject OptionsPanel;
+	/*public AudioSource A;*/
+	public Slider MainSound;
+	public Slider EffectsSound;
+	// Start is called before the first frame update
+	void Start()
+	{
+		/*        if (PlayerPrefs.HasKey("volume"))
+				{
+					MusicVolume = (PlayerPrefs.GetFloat("volume"));
 
-            A.Play();
-            A.volume = MusicVolume;
-            Slider.value = MusicVolume;
-        }*/
-    }
+					A.Play();
+					A.volume = MusicVolume;
+					Slider.value = MusicVolume;
+				}*/
+	}
 
-    // Update is called once per frame
-    void Update()
-    {
-        /*A.volume = MainSound.value;*/
-<<<<<<< HEAD
-=======
-        if (Input.GetKeyDown(KeyCode.Escape) && !paused)
-        {
+	// Update is called once per frame
+	void Update()
+	{
+		/*A.volume = MainSound.value;*/
+		PlayerPrefs.SetFloat("MainSound", MainSound.value);
+		PlayerPrefs.SetFloat("EffectsSound", EffectsSound.value);
+	}
+	public void play()
+	{
+		//panel of play
+		MainPanel.SetActive(false);
+		PlayPanel.SetActive(true);
+	}
+	public void Level1()
+	{
+		SceneManager.LoadScene(1);
+	}
+	public void Level2()
+	{
+		SceneManager.LoadScene(2);
+	}
+	public void Level3()
+	{
+		SceneManager.LoadScene(3);
+	}
+	public void Level4()
+	{
+		SceneManager.LoadScene(4);
+	}
+	public void options()
+	{
+		//panel options
+		MainPanel.SetActive(false);
+		OptionsPanel.SetActive(true);
+	}
+	public void back()
+	{
+		//panel options
+		if (PlayPanel.activeSelf)
+		{
 
-            paused = true;
-            PausePanel.SetActive(true);
-        }
-        if (Input.GetKeyDown(KeyCode.Escape) && paused)
-        {
+			MainPanel.SetActive(true);
+			PlayPanel.SetActive(false);
+		}
+		if (OptionsPanel.activeSelf)
+		{
 
-            paused = false;
-            PausePanel.SetActive(false);
-        }
->>>>>>> mine/test
-        PlayerPrefs.SetFloat("MainSound", MainSound.value);
-        PlayerPrefs.SetFloat("EffectsSound", EffectsSound.value);
-    }
-   public void play()
-    {
-        //panel of play
-        MainPanel.SetActive(false);
-        PlayPanel.SetActive(true);
-    }
-    public void Level1()
-    {
-        SceneManager.LoadScene(1);
-    }
-    public void Level2()
-    {
-        SceneManager.LoadScene(2);
-    }
-    public void Level3()
-    {
-        SceneManager.LoadScene(3);
-    }
-    public void Level4()
-    {
-        SceneManager.LoadScene(4);
-    }
-    public void options()
-    {
-        //panel options
-        MainPanel.SetActive(false);
-        OptionsPanel.SetActive(true);
-    }
-    public void back()
-    {
-        //panel options
-        if(PlayPanel.activeSelf)
-        {
+			MainPanel.SetActive(true);
+			OptionsPanel.SetActive(false);
+		}
+	}
+	public void Quit()
+	{
+		Application.Quit();
+	}
 
-            MainPanel.SetActive(true);
-            PlayPanel.SetActive(false);
-        }
-        if (OptionsPanel.activeSelf)
-        {
-
-            MainPanel.SetActive(true);
-            OptionsPanel.SetActive(false);
-        }
-    }
-    public void Quit()
-    {
-        Application.Quit();
-    }
-
-<<<<<<< HEAD
-=======
-    // for the pause panel
-    public void Resume()
-    {
-        PausePanel.SetActive(false);
-        paused = false;
-    }
-    public void MainMenu()
-    {
-        SceneManager.LoadScene(0);
-    }
-    public void Restart()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-    }
->>>>>>> mine/test
 
 }
