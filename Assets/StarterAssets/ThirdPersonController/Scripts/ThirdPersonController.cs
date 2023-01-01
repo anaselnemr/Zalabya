@@ -542,7 +542,7 @@ namespace StarterAssets
 			Debug.Log("ShootArrow");
 			GameObject arrow = Instantiate(arrowObj, arrowPoint.position, transform.rotation);
             arrowSound.Play();
-            arrow.GetComponent<Rigidbody>().AddForce(Camera.main.transform.forward * 25f, ForceMode.Impulse);
+            arrow.GetComponent<Rigidbody>().AddForce(Camera.main.transform.forward * 50f, ForceMode.Impulse);
 		}
 
 

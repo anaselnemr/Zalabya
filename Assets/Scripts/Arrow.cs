@@ -48,7 +48,10 @@ public class Arrow : MonoBehaviour
         {
             c.gameObject.GetComponent<bossScript>().TakeDamage(5);
         }
-
+        if (c.gameObject.CompareTag("fireBall")) // boss1
+        {
+            c.gameObject.transform.parent.GetComponent<bossScript>().ArowHitFireBall();
+        }
         if (c.gameObject.CompareTag("Boss2"))
         {
             if (c.gameObject.GetComponent<boss2Script>().getPhase())

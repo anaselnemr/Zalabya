@@ -10,7 +10,7 @@ public class Bomb : MonoBehaviour
 	public float explosionForce = 0.1f;
 
 	private bool isExploded = false;
-
+	public GameObject Explosion;
 	void Start()
 	{
 
@@ -64,13 +64,17 @@ public class Bomb : MonoBehaviour
                 if (rb.gameObject.GetComponent<boss2Script>().getPhase())
                 {
                     Debug.Log("the dmg is doubled");
-                    rb.gameObject.GetComponent<boss2Script>().TakeDamage(5);
+                    rb.gameObject.GetComponent<boss2Script>().TakeDamage(10);
                     return;
                 }
                 else if (!rb.gameObject.GetComponent<boss2Script>().getShieldStatus())
                 { // dbl the dmg
-                    rb.gameObject.GetComponent<boss2Script>().TakeDamage(5 * 2);
+                    rb.gameObject.GetComponent<boss2Script>().TakeDamage(10* 2);
                 }
+            }
+            if (rb.gameObject.CompareTag("Boss1"))
+            {
+             rb.gameObject.GetComponent<bossScript>().TakeDamage(10);
             }
 
 
@@ -78,8 +82,8 @@ public class Bomb : MonoBehaviour
 
             rb.AddExplosionForce(explosionForce, transform.position, explosionRadius);
 		}
-
-		Destroy(gameObject);
+        Instantiate(Explosion, transform.position, transform.rotation);
+        Destroy(gameObject);
 	}
 
 }

@@ -38,32 +38,32 @@ ModelImporter:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: assassin_boss_armor_alb
-    second: {fileID: 2800000, guid: 5ab665838f81bf7478a5a4e44c8c6c6e, type: 3}
+    second: {fileID: 2800000, guid: 637a5aacfa7edd54b8040e7cbb692051, type: 3}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: assassin_boss_armor_nrm
-    second: {fileID: 2800000, guid: 2647610f71e9d394ab18a9ad9b3f214e, type: 3}
+    second: {fileID: 2800000, guid: b53567980b8966448b0d088eb56e12e1, type: 3}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: assassin_boss_body_alb
-    second: {fileID: 2800000, guid: 81c3cbd0d40af38449c5b727ed9ef2c5, type: 3}
+    second: {fileID: 2800000, guid: cdd2099a0349d8442a5fe843a35303cc, type: 3}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: assassin_boss_body_nrm
-    second: {fileID: 2800000, guid: c97e997e9da48b1489438347f21042cd, type: 3}
+    second: {fileID: 2800000, guid: 541abc8eb00319443bee0e735d4a1b7f, type: 3}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: assassin_boss_hair_alb
-    second: {fileID: 2800000, guid: 8cc943943f226c149a325dbaf38e09b7, type: 3}
+    second: {fileID: 2800000, guid: 027a04c420bf9b54597bff617313dd06, type: 3}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: assassin_boss_hair_nrm
-    second: {fileID: 2800000, guid: 8a1e47aa17cf85445af37b40e82212e2, type: 3}
+    second: {fileID: 2800000, guid: 855da024d5b720b46b301ecc015d1561, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0

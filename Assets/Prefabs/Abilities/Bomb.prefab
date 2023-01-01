@@ -126,6 +126,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   explosionRadius: 5
   explosionForce: 1000
+  Explosion: {fileID: 5756686293318593309, guid: af9bc7d9aa00e514e886dc5a54529f4d, type: 3}
 --- !u!135 &4563446217516276738
 SphereCollider:
   m_ObjectHideFlags: 0

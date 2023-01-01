@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 // using System.Threading.Tasks;
 
@@ -104,7 +105,7 @@ public class bossScript : MonoBehaviour
     private Vector3 lastPosition; // will store the last postion the agent tp from
 
     private bool EnterOnce;
-
+    
 
     
     public AudioSource ThemeSound ;
@@ -114,7 +115,7 @@ public class bossScript : MonoBehaviour
    
     public AudioSource FireBallHitSound ;
     public AudioSource ExplodeSound ;
-
+    public GameObject Message;
 
 
 
@@ -453,6 +454,7 @@ public class bossScript : MonoBehaviour
             animator.Play("death");
             DieOnce=true;
             StopCoroutine("HasFallTime");
+                StartCoroutine(Next());
         }
 
        if(baseOffsetTemp>0){ // this is what makes the boss fall 
@@ -469,7 +471,12 @@ public class bossScript : MonoBehaviour
         
     }
 
-    
+    IEnumerator Next()
+    {
+        Message.SetActive(true);
+        yield return new WaitForSeconds(3);
+       SceneManager.LoadScene(4);
+    }
     IEnumerator ChargeBall()  {
         
       
@@ -753,9 +760,12 @@ public class bossScript : MonoBehaviour
 
     public void ArowHitFireBall(){
         
-        animator.Play("fall");
-        HasFall=true; // will be grounded and no bubble is around him anymore
-        isFallOnHead=true;
+        if (!OnTarget)
+        {
+            animator.Play("fall");
+            HasFall = true; // will be grounded and no bubble is around him anymore
+            isFallOnHead = true;
+        }
     }
 
      public void PlayHitSound(){
