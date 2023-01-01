@@ -11757,6 +11757,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pnlGameOver: {fileID: 1952364438}
   PausePanel: {fileID: 1218540007}
+  WinPanel: {fileID: 0}
   player: {fileID: 2008650225}
 --- !u!1 &1110742383 stripped
 GameObject:

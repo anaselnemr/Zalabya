@@ -38,6 +38,7 @@ public class Pause : MonoBehaviour
 		}
 		if (!ispaused && !won)
 		{
+			if(player != null)
 			player.SetActive(true);
 			Time.timeScale = 1f;
 		}
@@ -91,16 +92,20 @@ public class Pause : MonoBehaviour
     public void MainMenu()
 	{
 		Time.timeScale = 1f;
+        if (player != null)
 		player.SetActive(true);
 		SceneManager.LoadScene(0);
 		ispaused = false;
 	}
 	public void Restart()
-	{
-		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    {
+        won = false;
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 		won = false;
 		Time.timeScale = 1f;
-		player.SetActive(true);
+        if (player != null)
+        player.SetActive(true);
 		ispaused = false;
 	}
 
