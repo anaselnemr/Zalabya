@@ -140,6 +140,7 @@ namespace StarterAssets
 		private int health = 24;
 		public Sprite fullhealth;
 		public Sprite emptyhealth;
+		public Sprite halfhealthSprite;
 		public Image[] hearts;
 		public GameObject t;
 
@@ -219,14 +220,26 @@ namespace StarterAssets
 
 		public void HealthUpdate()
 		{
-			for (int i = 0; i < hearts.Length; i++)
-			{
-				if (i >= health)
-				{
-					hearts[i].sprite = emptyhealth;
-				}
 
+			int full = (int)Mathf.Floor(health / 2);
+			int half = 0;
+			int empty = 0;
+			if (health % 2 != 0)
+				half = 1;
+
+
+			empty = hearts.Length - full - half;
+
+			for (int i = (full + half); i < hearts.Length; i++)
+			{
+				hearts[i].sprite = emptyhealth;
 			}
+
+			if (half == 1)
+			{
+				hearts[full].sprite = halfhealthSprite;
+			}
+
 		}
 		IEnumerator DestroyEnemy()
 		{
