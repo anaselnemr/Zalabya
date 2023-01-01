@@ -8,13 +8,16 @@ public class Pause : MonoBehaviour
 {
 	public GameObject pnlGameOver;
 	public GameObject PausePanel;
+	public static bool won = false;
+	public GameObject WinPanel;
 	public GameObject player;
 	public static bool ispaused = false;
-	/*public AudioSource A;*/
-	/*    public Slider MainSound;
+	private bool WinOverActive;
+    /*public AudioSource A;*/
+    /*    public Slider MainSound;
 		public Slider EffectsSound;*/
-	// Start is called before the first frame update
-	void Start()
+    // Start is called before the first frame update
+    void Start()
 	{
 		/*        if (PlayerPrefs.HasKey("volume"))
                 {
@@ -29,27 +32,43 @@ public class Pause : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
-		if (!ispaused)
+		if (won)
+		{
+			Won();
+		}
+		if (!ispaused && !won)
 		{
 			player.SetActive(true);
+			Time.timeScale = 1f;
 		}
 		else
 		{
-			player.SetActive(false);
+            
+            Time.timeScale = 0f;
+            player.SetActive(false);
 		}
 
 
 		bool gameOverActive = pnlGameOver.activeSelf;
-		/*A.volume = MainSound.value;*/
-		if (Input.GetKeyDown(KeyCode.Escape) && !ispaused && !gameOverActive)
+		if(WinPanel != null)
+			WinOverActive = WinPanel.activeSelf;
+		else
 		{
+			WinOverActive = false;
+
+        }
+		/*A.volume = MainSound.value;*/
+		if (Input.GetKeyDown(KeyCode.Escape) && !ispaused && !gameOverActive && !WinOverActive  )
+		{
+			Debug.Log("ASFsa");
+			Time.timeScale = 0f; 
 			ispaused = true;
 			PausePanel.SetActive(true);
 			return;
 		}
 		if (Input.GetKeyDown(KeyCode.Escape) && ispaused)
-		{
-			ispaused = false;
+		{	Time.timeScale = 1f;
+                ispaused = false;
 			PausePanel.SetActive(false);
 		}
 		/*        PlayerPrefs.SetFloat("MainSound", MainSound.value);
@@ -62,13 +81,25 @@ public class Pause : MonoBehaviour
 		PausePanel.SetActive(false);
 		ispaused = false;
 	}
-	public void MainMenu()
+    public void Won()
+    {
+        player.SetActive(false);
+		Time.timeScale = 0f;
+        WinPanel.SetActive(true);
+        
+    }
+    public void MainMenu()
 	{
+		Time.timeScale = 1f;
+		player.SetActive(true);
 		SceneManager.LoadScene(0);
+		ispaused = false;
 	}
 	public void Restart()
 	{
 		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+		won = false;
+		Time.timeScale = 1f;
 		player.SetActive(true);
 		ispaused = false;
 	}

@@ -49,6 +49,19 @@ public class Arrow : MonoBehaviour
             c.gameObject.GetComponent<bossScript>().TakeDamage(5);
         }
 
+        if (c.gameObject.CompareTag("Boss2"))
+        {
+            if (c.gameObject.GetComponent<boss2Script>().getPhase())
+            {
+                Debug.Log("the dmg is doubled");
+                c.gameObject.GetComponent<boss2Script>().TakeDamage(5);
+                return;
+            }
+            else if (!c.gameObject.GetComponent<boss2Script>().getShieldStatus())
+            { // dbl the dmg
+                c.gameObject.GetComponent<boss2Script>().TakeDamage(5 * 2);
+            }
+        }
 
     }
 }

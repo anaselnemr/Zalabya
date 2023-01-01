@@ -23,6 +23,7 @@ namespace StarterAssets
 #endif
 	public class ThirdPersonController : MonoBehaviour
 	{
+        public AudioSource arrowSound;
 		public GameObject pnlGameover;
 		public GameObject gliderObj;
 		public GameObject arrowObj;
@@ -295,9 +296,26 @@ namespace StarterAssets
 				c.gameObject.GetComponent<bossScript>().TakeDamage(10);
 
 			}
+            if (c.gameObject.CompareTag("Boss2") && isPlaying("Sword Slash") && once)
+            {
+                once = false;
+                // double the dmg if he is in phase 2
+                if (c.gameObject.GetComponent<boss2Script>().getPhase())
+                {
+                    Debug.Log("the dmg is doubled");
+                    c.gameObject.GetComponent<boss2Script>().TakeDamage(10);
+                    return;
+                }
+                else if (!c.gameObject.GetComponent<boss2Script>().getShieldStatus())
+                { // dbl the dmg
+                    c.gameObject.GetComponent<boss2Script>().TakeDamage(10 * 2);
+                }
 
 
-		}
+
+            }
+
+        }
 		public void OnTriggerEnter(Collider c)
         {
 			if (c.gameObject.CompareTag("Next Level2"))
@@ -523,7 +541,8 @@ namespace StarterAssets
 			//   Event Trigger by animation
 			Debug.Log("ShootArrow");
 			GameObject arrow = Instantiate(arrowObj, arrowPoint.position, transform.rotation);
-			arrow.GetComponent<Rigidbody>().AddForce(Camera.main.transform.forward * 25f, ForceMode.Impulse);
+            arrowSound.Play();
+            arrow.GetComponent<Rigidbody>().AddForce(Camera.main.transform.forward * 25f, ForceMode.Impulse);
 		}
 
 

@@ -59,11 +59,24 @@ public class Bomb : MonoBehaviour
 
 				}
 			}
+            if (rb.gameObject.CompareTag("Boss2"))
+            {
+                if (rb.gameObject.GetComponent<boss2Script>().getPhase())
+                {
+                    Debug.Log("the dmg is doubled");
+                    rb.gameObject.GetComponent<boss2Script>().TakeDamage(5);
+                    return;
+                }
+                else if (!rb.gameObject.GetComponent<boss2Script>().getShieldStatus())
+                { // dbl the dmg
+                    rb.gameObject.GetComponent<boss2Script>().TakeDamage(5 * 2);
+                }
+            }
 
 
 
 
-			rb.AddExplosionForce(explosionForce, transform.position, explosionRadius);
+            rb.AddExplosionForce(explosionForce, transform.position, explosionRadius);
 		}
 
 		Destroy(gameObject);

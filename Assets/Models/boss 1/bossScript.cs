@@ -70,8 +70,8 @@ public class bossScript : MonoBehaviour
     public float FallingOnHeadSpeed = 1f;
     public bool onlyOnceOnHead ;
 
-    public float fartherThanAgentBy =100f; // the rdanadom place where it will be resawpned 
-    public float fartherThanLastLocation =500f; // the rdanadom place where it will be resawpned 
+    public float fartherThanAgentBy =200f; // the rdanadom place where it will be resawpned 
+    public float fartherThanLastLocation =50f; // the rdanadom place where it will be resawpned 
 
     public bool isPhase1;// if false mean the second phase
     public bool FinishedAllAni = true ; // if false mean the second phase
@@ -104,6 +104,20 @@ public class bossScript : MonoBehaviour
     private Vector3 lastPosition; // will store the last postion the agent tp from
 
     private bool EnterOnce;
+
+
+    
+    public AudioSource ThemeSound ;
+    //  public AudioSource ScreamSound ;
+    // public AudioSource FireBallSound ;
+    public AudioSource DeathSound ;
+   
+    public AudioSource FireBallHitSound ;
+    public AudioSource ExplodeSound ;
+
+
+
+
 
    
     
@@ -179,7 +193,7 @@ public class bossScript : MonoBehaviour
             isPhase1=false;
         }
 
-         if (!isPhase1) { // can tp in 2 cases (while charging and idle) 
+    if (!isPhase1) { // can tp in 2 cases (while charging and idle) 
 
             if(baseOffsetTemp>=baseOffset){
                 Phase2Animation.gameObject.SetActive(true);
@@ -213,7 +227,7 @@ public class bossScript : MonoBehaviour
                                 {
                                     newPosition = RandomNavmeshLocation2(100.0f);
                                 } while (Vector3.Distance(newPosition, target.position) < fartherThanAgentBy
-                                    || Vector3.Distance(newPosition, transform.position) < fartherThanLastLocation);
+                                  );
                                 navMeshAgent.Warp(newPosition);
                                 lastPosition = newPosition;
                             }
@@ -263,7 +277,7 @@ public class bossScript : MonoBehaviour
             Debug.Log("Out of range");
         }
 
-        if(Input.GetKeyDown("q")){ // to prevent more than one jump
+        if(Input.GetKeyDown("]")){ // to prevent more than one jump
             // animator.SetTrigger("isCharging") ;
             animator.Play("fall");
             HasFall=true; // will be grounded and no bubble is around him anymore
@@ -287,7 +301,7 @@ public class bossScript : MonoBehaviour
         //         FinishedAllAni=false ;
         //         animator.Play("charging");
         //         OnTarget=false;
-        //         fireBall.gameObject.SetActive(true);
+        //         fireBall.gameObject.SetActive(false);
         //         CharggingBall=true ;
         //         fireBall.transform.position = transform.position +new Vector3(0, 8, 0) ;
         //     }  
@@ -305,7 +319,7 @@ public class bossScript : MonoBehaviour
         }
         else{
 
-            fireBall.localScale += Vector3.one * scaleSpeed * Time.deltaTime; // scale the ball over the time
+            // fireBall.localScale += Vector3.one * scaleSpeed * Time.deltaTime; // scale the ball over the time
             rotateFireBall();
          
             if(CharggingBall){ // here either will teleport or not
@@ -317,7 +331,7 @@ public class bossScript : MonoBehaviour
                     int range = Random.Range(1,11) ; // Attack or TP
                     if(range>=1 && range<=8){ //80% chance will tp while charging in phase 2
                         int timeInCharge = Random.Range(1,4) ; // Attack or TP
-                        TpAnimationReference = Instantiate(TpAnimation, transform.position, transform.rotation);
+                        // TpAnimationReference = Instantiate(TpAnimation, transform.position, transform.rotation);
                         ChargingBallAndTpCoroutine=StartCoroutine(ChargingBallAndTp(timeInCharge));
                     }
                 }
@@ -329,7 +343,8 @@ public class bossScript : MonoBehaviour
 
         if (fireBall.transform.position == currentPostion) { // reset it again
             // Debug.Log("Lerp has reached the destination");
-            fireBall.gameObject.SetActive(false);
+            // fireBall.gameObject.SetActive(false);
+            // FireBallHitSound.Play();
             fireBall.localScale = fireBallSize ;
             FinishedAllAni=true;
           
@@ -645,19 +660,18 @@ public class bossScript : MonoBehaviour
     IEnumerator ChargingBallAndTp(float time)  { // if in range will wait this amount of time (to avoid the spamming)
         yield return new WaitForSeconds(time);
          
-        try{
-            Destroy(TpAnimationReference) ;
-        }
-        catch{
-            Debug.Log("not found yet errrror");
-        }
-
+        // try{
+        //     Destroy(TpAnimationReference) ;
+        // }
+        // catch{
+        //     Debug.Log("not found yet errrror");
+        // }
+        TpAnimationReference = Instantiate(TpAnimation, transform.position, transform.rotation);
         Debug.Log("will tp while charging");
         do
         {
             newPosition = RandomNavmeshLocation2(100.0f);
-        } while (Vector3.Distance(newPosition, target.position) < fartherThanAgentBy
-            || Vector3.Distance(newPosition, transform.position) < fartherThanLastLocation);
+        } while (Vector3.Distance(newPosition, target.position) < fartherThanAgentBy);
         navMeshAgent.Warp(newPosition);
         lastPosition = newPosition;
     }
@@ -688,15 +702,16 @@ public class bossScript : MonoBehaviour
     {
         if (HasFall && !DieOnce)
         {
+            Debug.Log("IN FLOOR AND DAMGED");
             BoosHealth -= damage;
             DamageAnimation.Play();
         }
-        if (BoosHealth <= 0)
-        {
+//         if (BoosHealth <= 0)
+//         {
 
-/*            a.PlayInFixedTime("Die");*/
-            StartCoroutine(DestroyEnemy());
-        }
+// /*            a.PlayInFixedTime("Die");*/
+//             StartCoroutine(DestroyEnemy());
+//         }
 
     }
     IEnumerator DestroyEnemy()
@@ -734,6 +749,20 @@ public class bossScript : MonoBehaviour
         yield return new WaitForSeconds(time);
         InitialWaitTime=true;
       
+    }
+
+    public void ArowHitFireBall(){
+        
+        animator.Play("fall");
+        HasFall=true; // will be grounded and no bubble is around him anymore
+        isFallOnHead=true;
+    }
+
+     public void PlayHitSound(){
+        FireBallHitSound.Play();
+        // animator.Play("fall");
+        // HasFall=true; // will be grounded and no bubble is around him anymore
+        // isFallOnHead=true;
     }
 
    

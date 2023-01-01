@@ -7,6 +7,7 @@ public class FireBallScript : MonoBehaviour
 {
     // Start is called before the first frame update
     public ParticleSystem explosionAnimation ; // when hitting somthing will play this
+    
     void Start()
     {
         
@@ -26,23 +27,29 @@ public class FireBallScript : MonoBehaviour
         
     }
 
-    public void OnTriggerEnter(Collider c) { // here will break the ball w5las hide + animation
+    public void OnTriggerEnter(Collider c) { // here will break the ball w5las hide + animatio
         string tag = c.gameObject.tag; // just hide it
         Debug.Log("ball hit something"+tag); 
-      
-      
-         if(c.gameObject.CompareTag("Hero")){ // not the fucking bubble
-            // explosionAnimation.Play();
+        //  c.gameObject.transform.parent.gameObject.PlayHitSound();
+    
+         if(c.gameObject.CompareTag("Hero")){ // not the fucking bubble /// play sound damge
+            gameObject.SetActive(false); // hide the ball 5las
             c.gameObject.transform.parent.gameObject.transform.parent.GetComponent<ThirdPersonController>().TakeDamage(4);
+            Instantiate(explosionAnimation, transform.position, transform.rotation);
             // StartCoroutine("WaitExplode");
         }
+
+      if(c.gameObject.CompareTag("obstacle")){ // not the fucking bubble
+            gameObject.SetActive(false); // hide the ball 5las
+            Instantiate(explosionAnimation, transform.position, transform.rotation);
+        }
+
+
+        // if(c.gameObject.CompareTag("obstacle")){ // not the fucking bubble
+        //     gameObject.SetActive(false); // hide the ball 5las
+        //     Instantiate(explosionAnimation, transform.position, transform.rotation);
+        // }
       
-        // explosionAnimation.gameObject.SetActive(true);
-        
-        // 
-     
-        // gameObject.SetActive(false); // hide the ball 5las
-        
 
       
     }

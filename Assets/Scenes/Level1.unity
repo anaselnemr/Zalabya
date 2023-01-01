@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4122777, g: 0.4892311, b: 0.60328877, a: 1}
+  m_IndirectSpecularColor: {r: 0.41227594, g: 0.48922887, b: 0.603285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -7123,6 +7123,68 @@ Transform:
   m_Father: {fileID: 1379105685}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &530664650
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 2008650226}
+    m_Modifications:
+    - target: {fileID: 3138428460951268675, guid: badfef26cca247a48bd2afcd4d66876f, type: 3}
+      propertyPath: m_Name
+      value: Arrow Sound
+      objectReference: {fileID: 0}
+    - target: {fileID: 3138428460951268685, guid: badfef26cca247a48bd2afcd4d66876f, type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3138428460951268685, guid: badfef26cca247a48bd2afcd4d66876f, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -59.432373
+      objectReference: {fileID: 0}
+    - target: {fileID: 3138428460951268685, guid: badfef26cca247a48bd2afcd4d66876f, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 139.11469
+      objectReference: {fileID: 0}
+    - target: {fileID: 3138428460951268685, guid: badfef26cca247a48bd2afcd4d66876f, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 413.91315
+      objectReference: {fileID: 0}
+    - target: {fileID: 3138428460951268685, guid: badfef26cca247a48bd2afcd4d66876f, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.5949489
+      objectReference: {fileID: 0}
+    - target: {fileID: 3138428460951268685, guid: badfef26cca247a48bd2afcd4d66876f, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3138428460951268685, guid: badfef26cca247a48bd2afcd4d66876f, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.8037635
+      objectReference: {fileID: 0}
+    - target: {fileID: 3138428460951268685, guid: badfef26cca247a48bd2afcd4d66876f, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3138428460951268685, guid: badfef26cca247a48bd2afcd4d66876f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3138428460951268685, guid: badfef26cca247a48bd2afcd4d66876f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3138428460951268685, guid: badfef26cca247a48bd2afcd4d66876f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: badfef26cca247a48bd2afcd4d66876f, type: 3}
+--- !u!4 &530664651 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3138428460951268685, guid: badfef26cca247a48bd2afcd4d66876f, type: 3}
+  m_PrefabInstance: {fileID: 530664650}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &538928797
 GameObject:
   m_ObjectHideFlags: 0
@@ -20297,6 +20359,7 @@ Transform:
   - {fileID: 485686603}
   - {fileID: 2142370550}
   - {fileID: 958367507}
+  - {fileID: 530664651}
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: -106.982, z: 0}
@@ -20450,6 +20513,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26e54e5a728a9234ab24fcf1460ed8a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  arrowSound: {fileID: 0}
   pnlGameover: {fileID: 1952364438}
   gliderObj: {fileID: 106537458}
   arrowObj: {fileID: 8423535596481907365, guid: 55ac84ea49b288045a9731ccf7616971, type: 3}
@@ -20570,6 +20634,9 @@ MonoBehaviour:
   whatisplayerLayer:
     serializedVersion: 2
     m_Bits: 64
+  whatisgroundlayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!114 &2008650234
 MonoBehaviour:
   m_ObjectHideFlags: 0
