@@ -96,7 +96,8 @@ public class Bokoblinagent : MonoBehaviour
 
 	private void ChasePlayer()
 	{
-        EnemyWalkSound.Play();
+        if (!EnemyWalkSound.isPlaying)
+            EnemyWalkSound.Play();
         Debug.Log("Chase Player");
 		if (gameObject.tag == "Moblin" && notagain)
 		{
@@ -160,7 +161,7 @@ public class Bokoblinagent : MonoBehaviour
 	}
 	public void TakeDamage(int damage)
 	{
-		health -= damage;
+        health -= damage;
 		int i = Random.Range(0, 2);
 		if (health <= 0)
 		{

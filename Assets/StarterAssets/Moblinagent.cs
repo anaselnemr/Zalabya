@@ -99,10 +99,8 @@ public class Moblinagent : MonoBehaviour
 
 	private void ChasePlayer()
 	{
-
-        EnemyWalkSound.Play();
-
-
+        if (!EnemyWalkSound.isPlaying)
+            EnemyWalkSound.Play();
         Debug.Log("Chase Player");
 		if (gameObject.tag == "Moblin " && notagain)
 		{
