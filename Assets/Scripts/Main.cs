@@ -9,6 +9,11 @@ public class Main : MonoBehaviour
     public GameObject MainPanel;
     public GameObject PlayPanel;
     public GameObject OptionsPanel;
+<<<<<<< HEAD
+=======
+    public GameObject PausePanel;
+    public static bool paused = false;
+>>>>>>> mine/test
     /*public AudioSource A;*/
     public Slider MainSound;
     public Slider EffectsSound;
@@ -29,6 +34,21 @@ public class Main : MonoBehaviour
     void Update()
     {
         /*A.volume = MainSound.value;*/
+<<<<<<< HEAD
+=======
+        if (Input.GetKeyDown(KeyCode.Escape) && !paused)
+        {
+
+            paused = true;
+            PausePanel.SetActive(true);
+        }
+        if (Input.GetKeyDown(KeyCode.Escape) && paused)
+        {
+
+            paused = false;
+            PausePanel.SetActive(false);
+        }
+>>>>>>> mine/test
         PlayerPrefs.SetFloat("MainSound", MainSound.value);
         PlayerPrefs.SetFloat("EffectsSound", EffectsSound.value);
     }
@@ -81,5 +101,22 @@ public class Main : MonoBehaviour
         Application.Quit();
     }
 
+<<<<<<< HEAD
+=======
+    // for the pause panel
+    public void Resume()
+    {
+        PausePanel.SetActive(false);
+        paused = false;
+    }
+    public void MainMenu()
+    {
+        SceneManager.LoadScene(0);
+    }
+    public void Restart()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+>>>>>>> mine/test
 
 }

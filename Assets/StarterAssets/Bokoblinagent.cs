@@ -152,6 +152,7 @@ public class Bokoblinagent : MonoBehaviour
 		else
 			return false;
 	}
+<<<<<<< HEAD
 	public void TakeDamage(int damage)
 	{
 		health -= damage;
@@ -170,6 +171,35 @@ public class Bokoblinagent : MonoBehaviour
 		ChasePlayer();
 	}
 	IEnumerator DestroyEnemy()
+=======
+    public void TakeDamage(int damage)
+    {
+        health -= damage;
+        int i = Random.Range(0, 2);
+        if (health <= 0)
+        {
+
+            a.PlayInFixedTime("Die");
+            StartCoroutine(DestroyEnemy());
+        }
+        else
+        {
+            if (i == 0)
+            {
+                a.PlayInFixedTime("damage");
+                Debug.Log("HEREAFDAFASDFASDF");
+            }
+            else
+            {
+                Debug.Log("NOT ASFBASDHFADSFSADs");
+
+                a.PlayInFixedTime("Hit");
+            }
+        }
+        ChasePlayer();
+    }
+    IEnumerator DestroyEnemy()
+>>>>>>> mine/test
 	{
 		yield return new WaitForSeconds(2);
 		Destroy(gameObject);

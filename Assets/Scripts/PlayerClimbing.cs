@@ -15,6 +15,10 @@ public class PlayerClimbing : MonoBehaviour
 
 	private GameObject wall;
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> mine/test
 	Animator animator;
 	// Start is called before the first frame update
 	void Start()

@@ -153,6 +153,7 @@ public class Moblinagent : MonoBehaviour
     }
     public void TakeDamage(int damage)
     {
+<<<<<<< HEAD
        health -= damage;
 
         if (health <= 0) {
@@ -165,6 +166,31 @@ public class Moblinagent : MonoBehaviour
             a.PlayInFixedTime("Hit");
         }
     ChasePlayer();
+=======
+        health -= damage;
+        int i = Random.Range(0, 2);
+        if (health <= 0)
+        {
+
+            a.PlayInFixedTime("Die");
+            StartCoroutine(DestroyEnemy());
+        }
+        else
+        {
+            if (i == 0)
+            {
+                a.PlayInFixedTime("damage");
+                Debug.Log("HEREAFDAFASDFASDF");
+            }
+            else
+            {
+                Debug.Log("NOT ASFBASDHFADSFSADs");
+
+                a.PlayInFixedTime("Hit");
+            }
+        }
+        ChasePlayer();
+>>>>>>> mine/test
     }
     IEnumerator DestroyEnemy()
     {

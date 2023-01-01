@@ -1,5 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+<<<<<<< HEAD
+=======
+using TMPro;
+>>>>>>> mine/test
 using UnityEngine;
 
 public class Abilities : MonoBehaviour
@@ -15,8 +19,16 @@ public class Abilities : MonoBehaviour
 	public GameObject chestpoint;
 	// 
 	public static bool activeStasis = false;
+<<<<<<< HEAD
 
 
+=======
+	public TMP_Text Text;
+	private void Start()
+	{
+        Text.text = "Bomb";
+    }
+>>>>>>> mine/test
 	private void FixedUpdate()
 	{
 		if (object_grabbed)
@@ -42,6 +54,7 @@ public class Abilities : MonoBehaviour
 	{
 		int prvSelectedAbility = selectedAbility;
 		if (Input.GetKeyDown(KeyCode.Alpha1))
+<<<<<<< HEAD
 			selectedAbility = 1;
 		if (Input.GetKeyDown(KeyCode.Alpha3))
 			selectedAbility = 3;
@@ -49,6 +62,26 @@ public class Abilities : MonoBehaviour
 			selectedAbility = 4;
 
 		if (prvSelectedAbility != selectedAbility)
+=======
+		{
+			selectedAbility = 1;
+			Text.text = "Bomb";
+		}
+		if (Input.GetKeyDown(KeyCode.Alpha3))
+		{
+			selectedAbility = 3;
+            Text.text = "Magnesis";
+
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha4))
+		{
+			selectedAbility = 4;
+            Text.text = "Stasis";
+
+        }
+
+        if (prvSelectedAbility != selectedAbility)
+>>>>>>> mine/test
 		{
 			Release();
 		}
@@ -73,6 +106,10 @@ public class Abilities : MonoBehaviour
 		{
 			if (currentBomb == null)
 			{
+<<<<<<< HEAD
+=======
+				this.GetComponent<Animator>().PlayInFixedTime("Throwing");
+>>>>>>> mine/test
 				GameObject bomb = Instantiate(bombPrefab, bombPoint.position, bombPoint.rotation);
 				bomb.GetComponent<Rigidbody>().AddForce(bombPoint.forward * bombThrowForce + bombPoint.up, ForceMode.VelocityChange);
 				currentBomb = bomb;
