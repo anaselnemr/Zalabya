@@ -319,7 +319,7 @@ namespace StarterAssets
 											gos[i].SetActive(false);
 										}*/
 
-					SceneManager.LoadScene(1);
+					SceneManager.LoadScene(2);
 					//Load level 2 
 				}
 				else
