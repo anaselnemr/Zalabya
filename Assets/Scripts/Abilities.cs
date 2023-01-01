@@ -19,8 +19,10 @@ public class Abilities : MonoBehaviour
 	public TMP_Text Text;
 
 	public LayerMask whatisplayerLayer;
+    public LayerMask whatisgroundlayer;
 
-	private void Start()
+
+    private void Start()
 	{
 		Text.text = "Bomb";
 	}
@@ -37,7 +39,7 @@ public class Abilities : MonoBehaviour
 			object_grabbed.AddForce(vector * 100f);
 			object_grabbed.AddTorque(torque * 20f);
 
-			if (vector.magnitude > 3f)
+			if (vector.magnitude > 4f)
 			{
 				Release();
 			}
@@ -76,18 +78,25 @@ public class Abilities : MonoBehaviour
 
 		if (selectedAbility == 3 && Input.GetKeyDown(KeyCode.Q))
 		{
+			
 			RaycastHit hit;
 			// if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, 5f))
-			if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward * 100, out hit, 100f, ~whatisplayerLayer))
+			if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward * 100, out hit, 100f, ~(whatisplayerLayer + whatisgroundlayer)))
 			{
 				Debug.Log("Object is " + hit.collider.name);
 				object_grabbed = hit.collider.GetComponent<Rigidbody>();
-			}
+				object_grabbed.GetComponent<Renderer>().material.color = (Color.red + Color.yellow) / 2 ;
+                object_grabbed.isKinematic = false;
+                object_grabbed.useGravity = true;
+                object_grabbed.mass = 1;
 
-		}
+            }
 
 
-		if (selectedAbility == 1 && Input.GetKeyUp(KeyCode.Q))
+        }
+
+
+		if (selectedAbility == 1 && Input.GetKeyUp(KeyCode.Q) )
 		{
 			if (currentBomb == null)
 			{
@@ -102,7 +111,10 @@ public class Abilities : MonoBehaviour
 				Release();
 			}
 		}
-
+		if(object_grabbed!=null && Input.GetKeyUp(KeyCode.Q))
+		{
+			Release();
+		}
 		if (selectedAbility == 4 && Input.GetKeyDown(KeyCode.Q))
 		{
 			// TODO: Stasis
@@ -112,16 +124,34 @@ public class Abilities : MonoBehaviour
 
 	}
 
-	void Release()
+    void Release()
 	{
-		object_grabbed = null;
+		if (object_grabbed != null)
+		{
+            object_grabbed.mass = 1000;
+            StartCoroutine(Returntonormal());
 
-		if (currentBomb != null)
+
+
+        }
+
+        if (currentBomb != null)
 			currentBomb.GetComponent<Bomb>().Explode();
 
 		activeStasis = false;
 
 	}
+	IEnumerator Returntonormal()
+	{
+		yield return new WaitForSeconds(2);
+        object_grabbed.isKinematic = true;
+        object_grabbed.useGravity = false;
+        object_grabbed.GetComponent<Renderer>().material.color = Color.white;
+        object_grabbed = null;
+
+
+
+    }
 
 
 }

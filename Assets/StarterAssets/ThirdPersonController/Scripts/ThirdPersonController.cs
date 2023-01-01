@@ -299,8 +299,12 @@ namespace StarterAssets
 
 		}
 		public void OnTriggerEnter(Collider c)
-		{
-			if (c.gameObject.CompareTag("Next Level"))
+        {
+			if (c.gameObject.CompareTag("Next Level2"))
+			{
+                SceneManager.LoadScene(3);
+            }
+                if (c.gameObject.CompareTag("Next Level"))
 			{
 				Debug.Log("here");
 
