@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Abilities : MonoBehaviour
 {
@@ -17,14 +18,20 @@ public class Abilities : MonoBehaviour
 	// 
 	public static bool activeStasis = false;
 	public TMP_Text Text;
+	public Image AbilityImg;
+	public Sprite spriteBomb;
+	public Sprite spriteMag;
+	public Sprite spriteStatus;
+
 
 	public LayerMask whatisplayerLayer;
-    public LayerMask whatisgroundlayer;
+	public LayerMask whatisgroundlayer;
 
 
-    private void Start()
+	private void Start()
 	{
-		Text.text = "Bomb";
+		//Text.text = "Bomb";
+		AbilityImg.sprite = spriteBomb;
 	}
 	private void FixedUpdate()
 	{
@@ -53,18 +60,22 @@ public class Abilities : MonoBehaviour
 		if (Input.GetKeyDown(KeyCode.Alpha1))
 		{
 			selectedAbility = 1;
-			Text.text = "Bomb";
+			//	Text.text = "Bomb";
+			AbilityImg.sprite = spriteBomb;
+
 		}
 		if (Input.GetKeyDown(KeyCode.Alpha3))
 		{
 			selectedAbility = 3;
-			Text.text = "Magnesis";
+			//	Text.text = "Magnesis";
+			AbilityImg.sprite = spriteMag;
 
 		}
 		if (Input.GetKeyDown(KeyCode.Alpha4))
 		{
 			selectedAbility = 4;
-			Text.text = "Stasis";
+			//	Text.text = "Stasis";
+			AbilityImg.sprite = spriteStatus;
 
 		}
 
@@ -78,25 +89,25 @@ public class Abilities : MonoBehaviour
 
 		if (selectedAbility == 3 && Input.GetKeyDown(KeyCode.Q))
 		{
-			
+
 			RaycastHit hit;
 			// if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, 5f))
 			if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward * 100, out hit, 100f, ~(whatisplayerLayer + whatisgroundlayer)))
 			{
 				Debug.Log("Object is " + hit.collider.name);
 				object_grabbed = hit.collider.GetComponent<Rigidbody>();
-				object_grabbed.GetComponent<Renderer>().material.color = (Color.red + Color.yellow) / 2 ;
-                object_grabbed.isKinematic = false;
-                object_grabbed.useGravity = true;
-                object_grabbed.mass = 1;
+				object_grabbed.GetComponent<Renderer>().material.color = (Color.red + Color.yellow) / 2;
+				object_grabbed.isKinematic = false;
+				object_grabbed.useGravity = true;
+				object_grabbed.mass = 1;
 
-            }
-
-
-        }
+			}
 
 
-		if (selectedAbility == 1 && Input.GetKeyUp(KeyCode.Q) )
+		}
+
+
+		if (selectedAbility == 1 && Input.GetKeyUp(KeyCode.Q))
 		{
 			if (currentBomb == null)
 			{
@@ -111,7 +122,7 @@ public class Abilities : MonoBehaviour
 				Release();
 			}
 		}
-		if(object_grabbed!=null && Input.GetKeyUp(KeyCode.Q))
+		if (object_grabbed != null && Input.GetKeyUp(KeyCode.Q))
 		{
 			Release();
 		}
@@ -124,18 +135,18 @@ public class Abilities : MonoBehaviour
 
 	}
 
-    void Release()
+	void Release()
 	{
 		if (object_grabbed != null)
 		{
-            object_grabbed.mass = 1000;
-            StartCoroutine(Returntonormal());
+			object_grabbed.mass = 1000;
+			StartCoroutine(Returntonormal());
 
 
 
-        }
+		}
 
-        if (currentBomb != null)
+		if (currentBomb != null)
 			currentBomb.GetComponent<Bomb>().Explode();
 
 		activeStasis = false;
@@ -144,14 +155,14 @@ public class Abilities : MonoBehaviour
 	IEnumerator Returntonormal()
 	{
 		yield return new WaitForSeconds(2);
-        object_grabbed.isKinematic = true;
-        object_grabbed.useGravity = false;
-        object_grabbed.GetComponent<Renderer>().material.color = Color.white;
-        object_grabbed = null;
+		object_grabbed.isKinematic = true;
+		object_grabbed.useGravity = false;
+		object_grabbed.GetComponent<Renderer>().material.color = Color.white;
+		object_grabbed = null;
 
 
 
-    }
+	}
 
 
 }

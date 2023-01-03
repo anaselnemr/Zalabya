@@ -23,7 +23,7 @@ namespace StarterAssets
 #endif
 	public class ThirdPersonController : MonoBehaviour
 	{
-        public AudioSource arrowSound;
+		public AudioSource arrowSound;
 		public GameObject pnlGameover;
 		public GameObject gliderObj;
 		public GameObject arrowObj;
@@ -35,6 +35,7 @@ namespace StarterAssets
 		public GameObject Bowhand;
 		public GameObject Sword;
 		public GameObject Shield;
+		public Image imgCrosshair;
 
 		public AudioSource DeathSound;
 		/*		public GameObject Bow;
@@ -150,6 +151,11 @@ namespace StarterAssets
 		private float shieldBlockTime = 10f;
 		private bool shieldCanBlock = true;
 		public TMP_Text Text;
+		public Image AttackType;
+		public Sprite spriteSword;
+		public Sprite spriteBow;
+
+
 
 
 		private bool IsCurrentDeviceMouse
@@ -299,33 +305,33 @@ namespace StarterAssets
 				c.gameObject.GetComponent<bossScript>().TakeDamage(10);
 
 			}
-            if (c.gameObject.CompareTag("Boss2") && isPlaying("Sword Slash") && once)
-            {
-                once = false;
-                // double the dmg if he is in phase 2
-                if (c.gameObject.GetComponent<boss2Script>().getPhase())
-                {
-                    Debug.Log("the dmg is doubled");
-                    c.gameObject.GetComponent<boss2Script>().TakeDamage(10);
-                    return;
-                }
-                else if (!c.gameObject.GetComponent<boss2Script>().getShieldStatus())
-                { // dbl the dmg
-                    c.gameObject.GetComponent<boss2Script>().TakeDamage(10 * 2);
-                }
+			if (c.gameObject.CompareTag("Boss2") && isPlaying("Sword Slash") && once)
+			{
+				once = false;
+				// double the dmg if he is in phase 2
+				if (c.gameObject.GetComponent<boss2Script>().getPhase())
+				{
+					Debug.Log("the dmg is doubled");
+					c.gameObject.GetComponent<boss2Script>().TakeDamage(10);
+					return;
+				}
+				else if (!c.gameObject.GetComponent<boss2Script>().getShieldStatus())
+				{ // dbl the dmg
+					c.gameObject.GetComponent<boss2Script>().TakeDamage(10 * 2);
+				}
 
 
 
-            }
+			}
 
-        }
+		}
 		public void OnTriggerEnter(Collider c)
-        {
+		{
 			if (c.gameObject.CompareTag("Next Level2"))
 			{
-                SceneManager.LoadScene(3);
-            }
-                if (c.gameObject.CompareTag("Next Level"))
+				SceneManager.LoadScene(3);
+			}
+			if (c.gameObject.CompareTag("Next Level"))
 			{
 				Debug.Log("here");
 
@@ -368,12 +374,13 @@ namespace StarterAssets
 		{
 			if (combatBow)
 			{
-				Text.text = "Ranged Attack";
+				//Text.text = "Ranged Attack";
+				AttackType.sprite = spriteBow;
 			}
 			else
 			{
-				Text.text = "Melee Attack";
-
+				//Text.text = "Melee Attack";
+				AttackType.sprite = spriteSword;
 			}
 			_hasAnimator = TryGetComponent(out _animator);
 			if (!isPlaying("Sword Slash"))
@@ -384,7 +391,8 @@ namespace StarterAssets
 
 			HealthUpdate();
 			GroundedCheck();
-			FallDamageCheck();
+			//FallDamageCheck();
+			//if(!PlayerClimbing.isClimbing)
 			Move();
 
 			// Gliding animation and action with setting the active weapons
@@ -440,7 +448,10 @@ namespace StarterAssets
 			{
 				combatBow = !combatBow;
 			}
-
+			if (combatBow)
+				imgCrosshair.enabled = true;
+			else
+				imgCrosshair.enabled = false;
 
 			// aimaing animation with camera and stay still (right click)
 			// shoot only while aiming (left click)
@@ -497,7 +508,7 @@ namespace StarterAssets
 					_animator.SetBool("AimShoot", true);
 				}
 
-				if (!combatBow && _speed==0f)
+				if (!combatBow)
 				{
 					_animator.SetTrigger("SwordSlash");
 				}
@@ -544,14 +555,15 @@ namespace StarterAssets
 			//   Event Trigger by animation
 			Debug.Log("ShootArrow");
 			GameObject arrow = Instantiate(arrowObj, arrowPoint.position, transform.rotation);
-            arrowSound.Play();
-            arrow.GetComponent<Rigidbody>().AddForce(Camera.main.transform.forward * 50f, ForceMode.Impulse);
+			arrowSound.Play();
+			arrow.GetComponent<Rigidbody>().AddForce(Camera.main.transform.forward * 50f, ForceMode.Impulse);
 		}
 
 
 
 		private void LateUpdate()
 		{
+			//if (!PlayerClimbing.isClimbing)
 			CameraRotation();
 		}
 

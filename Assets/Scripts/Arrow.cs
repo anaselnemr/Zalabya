@@ -5,15 +5,24 @@ using UnityEngine;
 
 public class Arrow : MonoBehaviour
 {
-	private void Start()
-	{
-		// remove the arrow after x seconds
-		Destroy(gameObject, 10);
-	}
-	private void OnTriggerEnter(Collider c)
-	{
-		// if the arrow hits a collider
-		Destroy(this);
+    public ParticleSystem arrowparticles;
+
+    private void Start()
+    {
+        // remove the arrow after x seconds
+        Destroy(gameObject, 10);
+    }
+
+    private void Update()
+    {
+        Instantiate(arrowparticles, transform.position, transform.rotation);
+    }
+
+
+    private void OnTriggerEnter(Collider c)
+    {
+        // if the arrow hits a collider
+        Destroy(this);
 
         //   if hit enemy
         if (c.gameObject.CompareTag("Bokoblin"))
@@ -30,7 +39,7 @@ public class Arrow : MonoBehaviour
 
             }
         }
-        if (c.gameObject.CompareTag("Moblin") )
+        if (c.gameObject.CompareTag("Moblin"))
         {
             MonoBehaviour w = c.gameObject.GetComponent<MonoBehaviour>();
             string type = w.GetType().Name;
