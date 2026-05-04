@@ -96,4 +96,4 @@ Built as a B.Sc. Computer Science & Engineering coursework project at the **Germ
 
 ## Authors
 
-Anas ElNemr  ·  Ahmed Eltawel
+Anas ElNemr  ·  Ahmed Eltawel  ·  Abdelrahman Hafez  ·  Ahmed Farouk  ·  Mahmoud Nabil
