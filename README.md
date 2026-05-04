@@ -96,10 +96,4 @@ Built as a B.Sc. Computer Science & Engineering coursework project at the **Germ
 
 ## Authors
 
-- **Anas ElNemr** ([@anaselnemr](https://github.com/anaselnemr)) — player systems, abilities, level design, bosses
-- **Ahmed Eltawel** — enemy AI, level 2, gameplay scripting
-- **Abdelrahman Hafez** — climbing system, stasis rune, menus, boss combat
-
----
-
-*Zalabya is a non-commercial student project and a love letter to the Zelda series. All third-party Unity Asset Store packs retain their original licenses.*
+Anas ElNemr  ·  Ahmed Eltawel
